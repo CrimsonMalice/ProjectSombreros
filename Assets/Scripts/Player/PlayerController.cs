@@ -11,7 +11,8 @@ public class PlayerController : MonoBehaviour {
     public Rigidbody2D rbody;
     Animator animator;
 
-    [SerializeField] private Vector2 velocity;
+    [SerializeField] public Vector2 velocity;
+    [SerializeField] public Vector2 direction;
     [SerializeField] [Range(40f, 100f)] public float speed = 70;
     [SerializeField] private int points;
     [SerializeField] public int money;
@@ -22,13 +23,15 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] private bool canAttack = true;
     [SerializeField] private bool moving;
     [SerializeField] private bool canGetHit = true;
+    [SerializeField] public bool canTakeExtraHit = false;
+    [SerializeField] public bool affectedByMud = true;
 
     [SerializeField] [Range(0, 9)] public int lives = 3;
 
     [SerializeField] private float bombDelayTimer;
     [SerializeField] [Range(1.5f, 5.5f)] private float bombDelayTimerStart;
-    [SerializeField] private float deathTimer;
-    [SerializeField] [Range(2.5f, 7.5f)] private float deathTimerStart = 3.5f;
+    [SerializeField] public float deathTimer;
+    [SerializeField] [Range(2.5f, 7.5f)] public float deathTimerStart = 3.5f;
     [SerializeField] float flashTimer = 0f;
     [SerializeField] float flashTimerStart = 0.01f;
     [SerializeField] float freezeTimer = 0f;
@@ -36,11 +39,11 @@ public class PlayerController : MonoBehaviour {
 
     [SerializeField] float gameOverTimer = 6.66f;
 
-    [SerializeField] private GameObject selectedBomb;
+    [SerializeField] public GameObject selectedBomb;
 
     [SerializeField] private Vector3 spawnPoint = new Vector3(-80, 16, 0);
 
-    [SerializeField] private AudioClip deathSound;
+    [SerializeField] public AudioClip deathSound;
 
     //[SerializeField] private bool powerupsLoaded = false;
     //[SerializeField] public List<string> powerUps;
@@ -162,7 +165,7 @@ public class PlayerController : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Enemy" && canGetHit)
+        if (other.gameObject.tag == "Enemy" && canGetHit && !canTakeExtraHit)
         {
             AudioSource.PlayClipAtPoint(deathSound, new Vector3(7, 8, -10), 1.0f);
             lives--;
@@ -188,24 +191,28 @@ public class PlayerController : MonoBehaviour {
         if (Input.GetAxisRaw("Horizontal") > 0)
         {
             moving = true;
+            direction = new Vector2(1, 0);
             return new Vector2(1, 0);
         }
 
         if (Input.GetAxisRaw("Horizontal") < 0)
         {
             moving = true;
+            direction = new Vector2(-1, 0);
             return new Vector2(-1, 0);
         }
 
         if (Input.GetAxisRaw("Vertical") > 0)
         {
             moving = true;
+            direction = new Vector2(0, 1);
             return new Vector2(0, 1);
         }
 
         if (Input.GetAxisRaw("Vertical") < 0)
         {
             moving = true;
+            direction = new Vector2(0, -1);
             return new Vector2(0, -1);
         }
 

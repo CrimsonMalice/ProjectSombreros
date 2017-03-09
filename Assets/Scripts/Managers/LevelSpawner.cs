@@ -56,6 +56,7 @@ public class LevelSpawner : MonoBehaviour {
         {
             print("Spawned");
             exitRocks.SetActive(false);
+            GameObject.FindGameObjectWithTag("ExitArrow").GetComponent<SpriteRenderer>().enabled = true;
             hasSpawned = true;
 
             levelExitPath.SetActive(true);

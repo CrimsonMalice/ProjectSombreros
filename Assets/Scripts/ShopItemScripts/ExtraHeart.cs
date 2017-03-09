@@ -5,12 +5,18 @@ using UnityEngine;
 public class ExtraHeart : MonoBehaviour {
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
 		
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		
+	void Update ()
+    {
+        if (gameObject.GetComponent<PlayerController>())
+        {
+            gameObject.GetComponent<PlayerController>().lives++;
+            Destroy(gameObject.GetComponent<ExtraHeart>());
+        }
 	}
 }
