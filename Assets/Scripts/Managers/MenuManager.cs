@@ -6,17 +6,24 @@ using UnityEngine.SceneManagement;
 public class MenuManager : MonoBehaviour {
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
 		
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
 		
 	}
 
     public void LoadLevel()
     {
         SceneManager.LoadScene("Level_1");
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
     }
 }
