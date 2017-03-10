@@ -32,6 +32,8 @@ public class ShopMenu : MonoBehaviour
 
     [SerializeField] private List<int> soldItems;
 
+    [SerializeField] private GameObject[] ItemSpots;
+
     private Vector3 framePos;
 
 	// Use this for initialization
@@ -41,7 +43,8 @@ public class ShopMenu : MonoBehaviour
         itemInstanceList = new List<GameObject>();
         newPos = new Vector3(-524, -422, 0);
 
-        framePos = shopFrame.transform.position;
+        framePos = ItemSpots[0].GetComponent<RectTransform>().position;
+        shopFrame.transform.position = framePos;
     }
 	
 	// Update is called once per frame
@@ -55,12 +58,12 @@ public class ShopMenu : MonoBehaviour
             {
                 for (int i = 0; i < itemList.Count; i++)
                 {
-                    itemInstanceList.Add(Instantiate(itemList[i], newPos, Quaternion.identity));
-                    itemInstanceList[i].GetComponent<Image>().rectTransform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
-                    itemInstanceList[i].transform.SetParent(gameObject.transform);
-                    itemInstanceList[i].GetComponent<RectTransform>().anchoredPosition = newPos;
+                    itemInstanceList.Add(Instantiate(itemList[i], ItemSpots[i].GetComponent<RectTransform>().position, Quaternion.identity));
+                    itemInstanceList[i].GetComponent<Image>().rectTransform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+                    itemInstanceList[i].transform.SetParent(gameObject.transform.FindChild("Items"));
+                    //itemInstanceList[i].GetComponent<RectTransform>().anchoredPosition = ItemSpots[i].GetComponent<RectTransform>().position;
 
-                    newPos += new Vector3(111, 0, 0);
+                    //newPos += new Vector3(111, 0, 0);
                 }
             }
             else if (itemList.Count == 0)
@@ -95,7 +98,7 @@ public class ShopMenu : MonoBehaviour
                 {
                     for (int i = 0; i < soldItems.Count; i++)
                     {
-                        itemList.RemoveAt(soldItems[i]);
+                        itemList.Remove(itemList[soldItems[i]]);
                     }
                 }
 
@@ -121,15 +124,29 @@ public class ShopMenu : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.RightArrow) && highLightedItem < itemList.Count - 1)
             {
-                shopFrame.transform.position += new Vector3(56, 0, 0);
                 highLightedItem++;
+                shopFrame.transform.position = ItemSpots[highLightedItem].GetComponent<RectTransform>().position;
 
                 UpdateText();
             }
             else if (Input.GetKeyDown(KeyCode.LeftArrow) && highLightedItem > 0)
             {
-                shopFrame.transform.position += new Vector3(-56, 0, 0);
                 highLightedItem--;
+                shopFrame.transform.position = ItemSpots[highLightedItem].GetComponent<RectTransform>().position;
+
+                UpdateText();
+            }
+            else if (Input.GetKeyDown(KeyCode.UpArrow) && highLightedItem > 2)
+            {
+                highLightedItem -= 3;
+                shopFrame.transform.position = ItemSpots[highLightedItem].GetComponent<RectTransform>().position;
+
+                UpdateText();
+            }
+            else if (Input.GetKeyDown(KeyCode.DownArrow) && highLightedItem < itemList.Count - 3)
+            {
+                highLightedItem += 3;
+                shopFrame.transform.position = ItemSpots[highLightedItem].GetComponent<RectTransform>().position;
 
                 UpdateText();
             }
