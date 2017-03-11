@@ -182,7 +182,7 @@ public class ShopMenu : MonoBehaviour
         dialougeText.text = itemInstanceList[highLightedItem].GetComponent<ShopItem>().dialougeText;
         itemNameText.text = itemInstanceList[highLightedItem].GetComponent<ShopItem>().itemNameText;
         itemDescriptionText.text = itemInstanceList[highLightedItem].GetComponent<ShopItem>().itemDescriptionText;
-        itemCostText.text = "Cost" + itemInstanceList[highLightedItem].GetComponent<ShopItem>().itemCost.ToString();
+        itemCostText.text = "Cost: " + itemInstanceList[highLightedItem].GetComponent<ShopItem>().itemCost.ToString() + " $";
         moneyText.text = "Money: " + pc.money.ToString();
 
     }
