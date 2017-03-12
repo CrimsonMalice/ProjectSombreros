@@ -6,11 +6,12 @@ using UnityEngine.UI;
 public class SceneFadingManager : MonoBehaviour 
 {
 	public Texture2D fadeOut;
-	public float fadeSpeed = 0.8f;
+	[SerializeField]
+	private float fadeSpeed = 1.5f;
 
 	private int drawDepth = 1000;
 	private float alpha = 1.0f;
-	private int fadeDir = -1;
+	public static int fadeDir = -1;
 
 	void OnGUI()
 	{

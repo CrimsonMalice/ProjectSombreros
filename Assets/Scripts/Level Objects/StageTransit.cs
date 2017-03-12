@@ -47,7 +47,9 @@ public class StageTransit : MonoBehaviour {
             GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().gameObject.transform.position = new Vector3(-80, 16, 0); //Set the player's position to the spawn
             hasTriggered = true; //Set it so the transition has been triggered to prevent an eternal loop
 
+			//SceneFadingManager.BeginFade ();
             SceneManager.LoadScene("Level_1"); //Load the next level
+			//SceneFadingManager.OnLevelWasLoaded ();
         }
     }
 }
