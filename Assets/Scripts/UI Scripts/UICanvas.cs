@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UICanvas : MonoBehaviour {
+public class UICanvas : MonoBehaviour 
+{
 
     public static UICanvas instance = null;
 
@@ -21,7 +22,8 @@ public class UICanvas : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update () {
+    void Update () 
+	{
 		
 	}
 }
