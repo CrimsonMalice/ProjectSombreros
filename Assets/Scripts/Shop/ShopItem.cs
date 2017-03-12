@@ -12,6 +12,7 @@ public class ShopItem : MonoBehaviour {
 
     [SerializeField] public int itemCost;
     [SerializeField] public bool sold = false;
+    [SerializeField] public bool unlocked;
 
 	// Use this for initialization
 	void Start ()

@@ -11,6 +11,7 @@ public class LevelManager : MonoBehaviour {
     [SerializeField] public static int playerLives = 3;
     [SerializeField] public static int currentPlayerScore = 0;
     [SerializeField] public static int tempCashCounter = 0;
+    [SerializeField] public static int itemShopSlots = 3;
     //[SerializeField] public static List<string> powerUps;
 
     [SerializeField] public static bool bankDestroyed = false;

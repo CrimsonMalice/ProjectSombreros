@@ -231,6 +231,14 @@ public class PlayerController : MonoBehaviour {
             canAttack = false;
             bombDelayTimer = bombDelayTimerStart;
         }
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            for (int i = 0; i < ListOfItems.listOfAllShopItems.Count; i++)
+            {
+                print(ListOfItems.listOfAllShopItems[i]);
+            }
+        }
     }
 
     void Timers()

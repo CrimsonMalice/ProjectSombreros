@@ -36,8 +36,8 @@ public class ShopMenu : MonoBehaviour
 
     private Vector3 framePos;
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start()
     {
         pc = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         itemInstanceList = new List<GameObject>();
@@ -45,6 +45,18 @@ public class ShopMenu : MonoBehaviour
 
         framePos = ItemSpots[0].GetComponent<RectTransform>().position;
         shopFrame.transform.position = framePos;
+
+        int shopItemCounter = 0;
+        List<GameObject> currentItemList = ListOfItems.listOfAllShopItems;
+
+        do
+        {
+            int randomIndex = Random.Range(0, currentItemList.Count);
+            itemList.Add(currentItemList[randomIndex]);
+            currentItemList.RemoveAt(randomIndex);
+            shopItemCounter++;
+        }
+        while (shopItemCounter < LevelManager.itemShopSlots);
     }
 	
 	// Update is called once per frame
@@ -83,7 +95,7 @@ public class ShopMenu : MonoBehaviour
             DoInput();
         }
 
-        print(itemList.Count);
+        //print(itemList.Count);
     }
 
 
@@ -159,7 +171,8 @@ public class ShopMenu : MonoBehaviour
                     //AddScript(itemInstanceList[highLightedItem].gameObject.GetComponent<ShopItem>().itemScript);
 
                     //Have a look at how to check for certain power-ups.
-                    AddPowerUp.AddPowerUpScript(itemInstanceList[highLightedItem].gameObject.GetComponent<ShopItem>().itemScript);
+                    print(itemList[highLightedItem]);
+                    AddPowerUp.AddPowerUpScript(itemInstanceList[highLightedItem].gameObject.GetComponent<ShopItem>().itemScript, itemList[highLightedItem]);
 
                     pc.money -= itemInstanceList[highLightedItem].gameObject.GetComponent<ShopItem>().itemCost;
                     itemInstanceList[highLightedItem].gameObject.GetComponent<Image>().sprite = soldSpr;
