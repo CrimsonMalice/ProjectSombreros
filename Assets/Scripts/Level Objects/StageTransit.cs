@@ -45,7 +45,6 @@ public class StageTransit : MonoBehaviour {
             LevelManager.tempCashCounter = lvlSpawner.cashCounter; //Reset the cash counter
 
             GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().gameObject.transform.position = new Vector3(-80, 16, 0); //Set the player's position to the spawn
-
             hasTriggered = true; //Set it so the transition has been triggered to prevent an eternal loop
 
             SceneManager.LoadScene("Level_1"); //Load the next level
