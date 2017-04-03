@@ -116,6 +116,13 @@ public class LevelGenerator : MonoBehaviour
             {
                 int structureHeight = Random.Range(MINHEIGHT, MAXHEIGHT); //Generate a random Height with set min & max parameters.
                 int structureWidth = Random.Range(MINWIDTH, MAXWIDTH); //Generate a random Width with set min & max parameters.
+
+                //Todo:
+                //- Generate a structure from prefab depending on the set width and height.
+                //- Instansiate that Prefab
+                //- Cover up all the positions in the array depending on the height and width
+                //- Generate roads above, below and to the sides of the structure
+                //- Incement the currentArrayPos according the the width.
             }
         }
     }
