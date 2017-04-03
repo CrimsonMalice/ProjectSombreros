@@ -100,8 +100,23 @@ public class LevelGenerator : MonoBehaviour
     {
         while (currentArrayPos.x < mapVectorSize.x && currentArrayPos.y < mapVectorSize.y)
         {
-            distanceToRightEdge = MAPWIDTH - (int)currentArrayPos.x;
-            distanceToBottom = MAPHEIGHT - (int)currentArrayPos.y;
+            distanceToRightEdge = MAPWIDTH - (int)currentArrayPos.x; //Update our current distance to the right edge.
+            distanceToBottom = MAPHEIGHT - (int)currentArrayPos.y; //Update our current distance to the bottom.
+
+            if (levelMap[(int)currentArrayPos.x, (int)currentArrayPos.y] != 0) //If the current position in the array isn't occupied:
+            {
+                currentArrayPos.x++;
+
+                if (currentArrayPos.y > MAPWIDTH) //If we exceed the Maps width:
+                {
+                    currentArrayPos.y++;
+                }
+            }
+            else
+            {
+                int structureHeight = Random.Range(MINHEIGHT, MAXHEIGHT); //Generate a random Height with set min & max parameters.
+                int structureWidth = Random.Range(MINWIDTH, MAXWIDTH); //Generate a random Width with set min & max parameters.
+            }
         }
     }
 }

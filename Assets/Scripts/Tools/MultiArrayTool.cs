@@ -38,8 +38,8 @@ public class MultiArrayTool : MonoBehaviour {
             arrayXLength = LevelGenerator.levelMap.GetLength(1);
             arrayYLength = LevelGenerator.levelMap.GetLength(0);
 
-            print(multiDArray.GetLength(1));
-            print(multiDArray.GetLength(0));
+            print(LevelGenerator.levelMap.GetLength(1));
+            print(LevelGenerator.levelMap.GetLength(0));
 
             for (int i = 0; i < arrayYLength; i++)
             {
