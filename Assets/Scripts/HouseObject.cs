@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class HouseObject : MonoBehaviour {
 
-    public int width;
-    public int height;
+    [SerializeField] public int height;
+    [SerializeField] public int width;
 
-	// Use this for initialization
-	void Start () {
+    [SerializeField] public int arrayY;
+    [SerializeField] public int arrayX;
+
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
