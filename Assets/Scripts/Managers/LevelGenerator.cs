@@ -21,8 +21,8 @@ public class LevelGenerator : MonoBehaviour
     const int MINHEIGHT = 5;
     const int MAXWIDTH = 8; //19
     const int MAXHEIGHT = 5; //7
-    const int MAPHEIGHT = 34;
-    const int MAPWIDTH = 60; //60
+    const int MAPHEIGHT = 33;
+    const int MAPWIDTH = 59; //60
     Vector2 topLeftMap = new Vector2(-432, 238);
     private Vector2 mapVectorSize;
 
@@ -98,9 +98,8 @@ public class LevelGenerator : MonoBehaviour
  {1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
  {1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
  {1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
- {1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
- {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1},
- {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1},
+ {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+ {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
  };
     }
 
@@ -121,7 +120,7 @@ public class LevelGenerator : MonoBehaviour
                 if (currentArrayPosX >= MAPWIDTH) //If we exceed the Maps width:
                 {
                     currentArrayPosY++; //Move down a row.
-                    currentArrayPosX = 3; // Is there to not overwrite the road
+                    currentArrayPosX = 2; // Is there to not overwrite the road
 
                     currentPos = new Vector2(grid.transform.position.x, currentPos.y - 16);
                 }
@@ -137,7 +136,7 @@ public class LevelGenerator : MonoBehaviour
                 if (currentArrayPosX >= MAPWIDTH) //If we exceed the Maps width:
                 {
                     currentArrayPosY++; //Move down a row.
-                    currentArrayPosX = 3;
+                    currentArrayPosX = 2;
 
                     currentPos = new Vector2(grid.transform.position.x, currentPos.y - 16);
                 }
@@ -163,6 +162,21 @@ public class LevelGenerator : MonoBehaviour
                         {
                             structureHeight = Random.Range(MINHEIGHT, MAXHEIGHT); //Generate a random Height with set min & max parameters.
                             structureWidth = Random.Range(MINWIDTH, MAXWIDTH); //Generate a random Width with set min & max parameters.
+
+                            //Loop through all spots where the building will be placed, so that it doesn't intersect anything.
+                            for (int j = 0; j <= structureHeight; j++)
+                            {
+                                for(int k = 0; k <= structureWidth; k++)
+                                if (levelMap[currentArrayPosY + j, currentArrayPosX + k] != 0)
+                                {
+                                    break;
+                                }
+
+                                if (j == structureHeight && k == structureWidth)
+                                {
+                                    validSize = true;
+                                }
+                            }
 
                             if (structureHeight < distanceToBottom - 2 && structureWidth < distanceToRightEdge - 2) //If the Height and Width doesn't go outside the map or cross the preset roads.
                             {
@@ -275,7 +289,7 @@ public class LevelGenerator : MonoBehaviour
                 if (currentArrayPosX >= MAPWIDTH) //If we exceed the Maps width:
                 {
                     currentArrayPosY++; //Move down a row.
-                    currentArrayPosX = 3; // Is there to not overwrite the road
+                    currentArrayPosX = 2; // Is there to not overwrite the road
 
                     currentPos = new Vector2(grid.transform.position.x, grid.transform.position.y + roadOffset);
                 }
