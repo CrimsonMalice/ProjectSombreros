@@ -163,26 +163,13 @@ public class LevelGenerator : MonoBehaviour
                             structureHeight = Random.Range(MINHEIGHT, MAXHEIGHT); //Generate a random Height with set min & max parameters.
                             structureWidth = Random.Range(MINWIDTH, MAXWIDTH); //Generate a random Width with set min & max parameters.
 
-                            //Loop through all spots where the building will be placed, so that it doesn't intersect anything.
-                            for (int j = 0; j <= structureHeight; j++)
-                            {
-                                for(int k = 0; k <= structureWidth; k++)
-                                if (levelMap[currentArrayPosY + j, currentArrayPosX + k] != 0)
-                                {
-                                    break;
-                                }
-
-                                if (j == structureHeight && k == structureWidth)
-                                {
-                                    validSize = true;
-                                }
-                            }
+                            CheckValidPlacement(structureHeight, structureWidth, validSize);
 
                             if (structureHeight < distanceToBottom - 2 && structureWidth < distanceToRightEdge - 2) //If the Height and Width doesn't go outside the map or cross the preset roads.
                             {
                                 validSize = true;
                             }
-                            else if (structureHeight > distanceToBottom - 2 || structureWidth > distanceToRightEdge - 2)
+                            if (structureHeight > distanceToBottom - 2 || structureWidth > distanceToRightEdge - 2)
                             {
                                 placeRocks = true;
                             }
@@ -214,7 +201,7 @@ public class LevelGenerator : MonoBehaviour
 
                 }
 
-                if (!placeRocks)
+                if (!placeRocks && validSize)
                 {
                     int widthCounter = 0;
 
@@ -260,28 +247,13 @@ public class LevelGenerator : MonoBehaviour
                     }
                 }
 
-                if (placeRocks)
+                if (placeRocks && !validSize)
                 {
-                    for (int j = 0; j < distanceToBottom; j++)
+                    if(levelMap[currentArrayPosY, currentArrayPosX] == 0)
                     {
-                        for (int k = 0; k < distanceToRightEdge; k++)
-                        {
-                            levelMap[currentArrayPosY + j, currentArrayPosX + k] = 2; //Mark all the rock-tiles
-                        }
+                        levelMap[currentArrayPosY, currentArrayPosX] = 2; //Mark all the rock-tiles
                     }
                 }
-
-                //levelMap[currentArrayPosY, currentArrayPosX] = 3;
-                //currentPos = new Vector2(currentPos.x + (16 * newBuilding.GetComponent<HouseObject>().width + 36), currentPos.y);
-                //currentArrayPosX +=  newBuilding.GetComponent<HouseObject>().width + 2;
-
-                //if (currentArrayPosX >= MAPWIDTH) //If we exceed the Maps width:
-                //{
-                //    currentArrayPosY++;
-                //    currentArrayPosX = 2; // Is three not to write over the road
-
-                //    currentPos = new Vector2(grid.transform.position.x, grid.transform.position.y + 16);
-                //}
 
                 currentArrayPosX++; //Since there's nothing to store or do on this spot, we move on to the next tile.
                 currentPos = new Vector2(currentPos.x + 16, currentPos.y); //Update the current world-coordinates
@@ -304,6 +276,27 @@ public class LevelGenerator : MonoBehaviour
             //- Cover up all the positions in the array depending on the height and width
             //- Generate roads above, below and to the sides of the structure
             //- Incement the currentArrayPos according the the width.
+        }
+    }
+
+    void CheckValidPlacement(int structureHeight, int structureWidth, bool validSize)
+    {
+        //Loop through all spots where the building will be placed, so that it doesn't intersect anything.
+        for (int j = 0; j <= structureHeight; j++)
+        {
+            for (int k = 0; k <= structureWidth; k++)
+            {
+                if (levelMap[currentArrayPosY + j, currentArrayPosX + k] != 0)
+                {
+                    return;
+                }
+
+                if (j == structureHeight && k == structureWidth && structureHeight < distanceToBottom - 2 && structureWidth < distanceToRightEdge - 2 && levelMap[currentArrayPosY + j, currentArrayPosX + k] == 0)
+                {
+                    validSize = true;
+                    return;
+                }
+            }
         }
     }
 }
