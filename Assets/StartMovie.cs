@@ -15,8 +15,8 @@ public class StartMovie : MonoBehaviour
 	void Start ()
     {
         ((MovieTexture)GetComponent<Renderer>().material.mainTexture).Play();
-        Renderer renderer = GetComponent<Renderer>();
-        MovieTexture movie = (MovieTexture)renderer.material.mainTexture;
+        //Renderer renderer = GetComponent<Renderer>();
+        //MovieTexture movie = (MovieTexture)renderer.material.mainTexture;
 
     }
 	
