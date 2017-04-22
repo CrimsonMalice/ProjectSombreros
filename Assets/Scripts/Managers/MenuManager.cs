@@ -3,24 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-
+[RequireComponent(typeof(Renderer))]
 public class MenuManager : MonoBehaviour
 {
-    [SerializeField] private bool isPlaying;
+    //[SerializeField] private bool isPlaying;
 
 	// Use this for initialization
 	void Start ()
     {
-		((MovieTexture)GetComponent<Renderer>().material.mainTexture).Play();
-        Renderer renderer = GetComponent<Renderer>();
-        MovieTexture movie = (MovieTexture)renderer.material.mainTexture;
-        isPlaying = true;
+		//((MovieTexture)GetComponent<Renderer>().material.mainTexture).Play();
+  //      Renderer renderer = GetComponent<Renderer>();
+  //      MovieTexture movie = (MovieTexture)renderer.material.mainTexture;
+  //      isPlaying = true;
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        if (Input.GetButtonDown("Enter"))
+        if (Input.GetButtonDown("Submit"))
         {
             LoadLevel();
         }
