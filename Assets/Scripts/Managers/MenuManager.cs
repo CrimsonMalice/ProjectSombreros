@@ -26,7 +26,7 @@ public class MenuManager : MonoBehaviour
 
     public void LoadLevel()
     {
-        SceneManager.LoadScene("Level_1");        
+        SceneManager.LoadScene("LoadingScene");        
     }
 
   
