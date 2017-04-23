@@ -34,6 +34,8 @@ public class ShopMenu : MonoBehaviour
 
     [SerializeField] private GameObject[] ItemSpots;
 
+    [SerializeField] private GameObject itemsObject;
+
     private Vector3 framePos;
 
     // Use this for initialization
@@ -72,7 +74,7 @@ public class ShopMenu : MonoBehaviour
                 {
                     itemInstanceList.Add(Instantiate(itemList[i], ItemSpots[i].GetComponent<RectTransform>().position, Quaternion.identity));
                     itemInstanceList[i].GetComponent<Image>().rectTransform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-                    itemInstanceList[i].transform.SetParent(gameObject.transform.FindChild("Items"));
+                    itemInstanceList[i].transform.SetParent(itemsObject.transform);
                     //itemInstanceList[i].GetComponent<RectTransform>().anchoredPosition = ItemSpots[i].GetComponent<RectTransform>().position;
 
                     ////newPos += new Vector3(111, 0, 0);
