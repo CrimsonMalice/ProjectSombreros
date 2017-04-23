@@ -10,6 +10,8 @@ public class MenuManager : MonoBehaviour
     {
 		
     }
+
+
 	
 	// Update is called once per frame
 	void Update ()
@@ -17,14 +19,17 @@ public class MenuManager : MonoBehaviour
         if (Input.GetButtonDown("Submit"))
         {
             LoadLevel();
+            
+          
         }
 	} 
 
     public void LoadLevel()
     {
-        SceneManager.LoadScene("Level_1");
+        SceneManager.LoadScene("Level_1");        
     }
 
+  
     public void Quit()
     {
         Application.Quit();

@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class SceneFadingManager : MonoBehaviour 
 {
-	public Texture2D fadeOut;
+   
+    public Texture2D fadeOut;
 	[SerializeField]
 	private float fadeSpeed = 1.5f;
 
