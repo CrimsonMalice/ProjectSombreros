@@ -59,7 +59,7 @@ public class LevelSpawner : MonoBehaviour {
             GameObject.FindGameObjectWithTag("ExitArrow").GetComponent<SpriteRenderer>().enabled = true;
             hasSpawned = true;
 
-            levelExitPath.SetActive(true);
+            //levelExitPath.SetActive(true);
             levelTransitionTrigger.SetActive(true);
         }
     }
