@@ -75,7 +75,7 @@ public class ShopMenu : MonoBehaviour
                     itemInstanceList[i].transform.SetParent(gameObject.transform.FindChild("Items"));
                     //itemInstanceList[i].GetComponent<RectTransform>().anchoredPosition = ItemSpots[i].GetComponent<RectTransform>().position;
 
-                    //newPos += new Vector3(111, 0, 0);
+                    ////newPos += new Vector3(111, 0, 0);
                 }
             }
             else if (itemList.Count == 0)
