@@ -117,6 +117,15 @@ public class PlayerController : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate ()
     {
+        if (LevelManager.stageTransitLoaded)
+        {
+            readInput = false;
+
+            direction = new Vector2(1, 0);
+            velocity = rbody.velocity / (speed / 3);
+            rbody.velocity = new Vector2(1f, 0f) * (speed / 3);
+        }
+
         if (readInput)
         {
             DoInput();
