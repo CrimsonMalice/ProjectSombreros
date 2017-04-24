@@ -165,7 +165,7 @@ public class PlayerController : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Enemy" && canGetHit && !canTakeExtraHit)
+        if (other.gameObject.tag == "Enemy" || other.gameObject.tag == "Bullet" && canGetHit && !canTakeExtraHit)
         {
             AudioSource.PlayClipAtPoint(deathSound, new Vector3(7, 8, -10), 1.0f);
             lives--;

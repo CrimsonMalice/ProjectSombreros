@@ -15,7 +15,7 @@ public class Sheriff : MonoBehaviour {
     [SerializeField] private bool moving; //If the Sheriff is moving.
     [SerializeField] private GameObject[] pointOptions; //The selection of new destination in which the Sheriff can travel towards.
 
-    [SerializeField] private Vector2 direction; //The moving direction of the Sheriff
+    [SerializeField] public Vector2 direction; //The moving direction of the Sheriff
     [SerializeField] private float castDistance = 750f; //How far to raycast for obstacles
 
     [SerializeField] private AudioClip deathSound; //The clip to play when a Sheriff dies
