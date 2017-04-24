@@ -117,6 +117,15 @@ public class PlayerController : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate ()
     {
+        if (LevelManager.stageTransitLoaded)
+        {
+            readInput = false;
+
+            direction = new Vector2(1, 0);
+            velocity = rbody.velocity / (speed / 3);
+            rbody.velocity = new Vector2(1f, 0f) * (speed / 3);
+        }
+
         if (readInput)
         {
             DoInput();
@@ -165,7 +174,7 @@ public class PlayerController : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Enemy" && canGetHit && !canTakeExtraHit)
+        if (other.gameObject.tag == "Enemy" || other.gameObject.tag == "Bullet" && canGetHit && !canTakeExtraHit)
         {
             AudioSource.PlayClipAtPoint(deathSound, new Vector3(7, 8, -10), 1.0f);
             lives--;

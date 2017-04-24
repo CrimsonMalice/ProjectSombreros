@@ -17,6 +17,7 @@ public class LevelManager : MonoBehaviour {
     //[SerializeField] public static List<string> powerUps;
 
     [SerializeField] public static bool bankDestroyed = false;
+    [SerializeField] public static bool stageTransitLoaded = false;
 
     //[SerializeField] private LevelSpawner lvlSpawner;
 
