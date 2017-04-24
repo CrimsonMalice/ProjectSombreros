@@ -29,9 +29,9 @@ public class BulletScript : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "House" || other.gameObject.tag == "Walls" || other.gameObject.tag == "Obstacle" || other.gameObject.tag == "Player")
-        {
-            Destroy(gameObject);
-        }
+        //if (other.gameObject.tag == "House" || other.gameObject.tag == "Walls" || other.gameObject.tag == "Obstacle" || other.gameObject.tag == "Player")
+        //{
+        //    Destroy(gameObject);
+        //}
     }
 }

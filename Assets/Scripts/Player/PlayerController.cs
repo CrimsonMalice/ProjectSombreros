@@ -176,6 +176,10 @@ public class PlayerController : MonoBehaviour {
     {
         if (other.gameObject.tag == "Enemy" || other.gameObject.tag == "Bullet" && canGetHit && !canTakeExtraHit)
         {
+            if (other.gameObject.tag == "Bullet")
+            {
+                Destroy(other.gameObject);
+            }
             AudioSource.PlayClipAtPoint(deathSound, new Vector3(7, 8, -10), 1.0f);
             lives--;
 

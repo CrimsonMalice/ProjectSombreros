@@ -19,8 +19,8 @@ public class LevelGenerator : MonoBehaviour
 
     const int MINWIDTH = 4;
     const int MINHEIGHT = 5;
-    const int MAXWIDTH = 8; //19
-    const int MAXHEIGHT = 5; //7
+    const int MAXWIDTH = 8; //19 /8
+    const int MAXHEIGHT = 5; //7 /5
     const int MAPHEIGHT = 33;
     const int MAPWIDTH = 59; //60
     Vector2 topLeftMap = new Vector2(-432, 238);
@@ -108,11 +108,11 @@ public class LevelGenerator : MonoBehaviour
         distanceToRightEdge = MAPWIDTH - currentArrayPosX; //Update our current distance to the right edge.
         distanceToBottom = MAPHEIGHT - currentArrayPosY; //Update our current distance to the bottom.
 
-        while (currentArrayPosY < MAPHEIGHT) //Loop through the map as long as we haven't gone outside the map-borders.
+        while (currentArrayPosY < MAPHEIGHT - 1) //Loop through the map as long as we haven't gone outside the map-borders.
         {
             if (levelMap[currentArrayPosY, currentArrayPosX] == 2)
             {
-                Instantiate(rock, currentPos, Quaternion.identity);
+                //Instantiate(rock, currentPos, Quaternion.identity);
 
                 currentArrayPosX++; //Since there's nothing to store or do on this spot, we move on to the next tile.
                 currentPos = new Vector2(currentPos.x + 16, currentPos.y); //Update the current world-coordinates
@@ -165,11 +165,11 @@ public class LevelGenerator : MonoBehaviour
 
                             CheckValidPlacement(structureHeight, structureWidth, validSize);
 
-                            if (structureHeight < distanceToBottom - 2 && structureWidth < distanceToRightEdge - 2) //If the Height and Width doesn't go outside the map or cross the preset roads.
+                            if (structureHeight < distanceToBottom - 1 && structureWidth < distanceToRightEdge - 1) //If the Height and Width doesn't go outside the map or cross the preset roads.
                             {
                                 validSize = true;
                             }
-                            if (structureHeight > distanceToBottom - 2 || structureWidth > distanceToRightEdge - 2)
+                            if (structureHeight > distanceToBottom - 1 || structureWidth > distanceToRightEdge - 1)
                             {
                                 placeRocks = true;
                             }
@@ -252,6 +252,7 @@ public class LevelGenerator : MonoBehaviour
                     if(levelMap[currentArrayPosY, currentArrayPosX] == 0)
                     {
                         levelMap[currentArrayPosY, currentArrayPosX] = 2; //Mark all the rock-tiles
+                        Instantiate(rock, currentPos, Quaternion.identity);
                     }
                 }
 
@@ -263,7 +264,7 @@ public class LevelGenerator : MonoBehaviour
                     currentArrayPosY++; //Move down a row.
                     currentArrayPosX = 2; // Is there to not overwrite the road
 
-                    currentPos = new Vector2(grid.transform.position.x, grid.transform.position.y + roadOffset);
+                    currentPos = new Vector2(grid.transform.position.x, grid.transform.position.y /*+ roadOffset*/);
                 }
 
                 distanceToRightEdge = MAPWIDTH - currentArrayPosX; //Update our current distance to the right edge.
@@ -291,7 +292,7 @@ public class LevelGenerator : MonoBehaviour
                     return;
                 }
 
-                if (j == structureHeight && k == structureWidth && structureHeight < distanceToBottom - 2 && structureWidth < distanceToRightEdge - 2 && levelMap[currentArrayPosY + j, currentArrayPosX + k] == 0)
+                if (j == structureHeight && k == structureWidth)
                 {
                     validSize = true;
                     return;
