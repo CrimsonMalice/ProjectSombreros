@@ -46,6 +46,7 @@ public class StageTransit : MonoBehaviour {
 
             GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().gameObject.transform.position = new Vector3(-450.4f, 245.9f, 0); //Set the player's position to the spawn
             hasTriggered = true; //Set it so the transition has been triggered to prevent an eternal loop
+            LevelManager.bankDestroyed = false;
 
             //string nextLevel = LevelManager.levelList[Random.Range(0, LevelManager.levelList.Length)];
 

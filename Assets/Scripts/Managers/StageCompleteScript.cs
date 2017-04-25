@@ -17,12 +17,17 @@ public class StageCompleteScript : MonoBehaviour {
     [SerializeField] private float showTextThree = 5.0f;
 
     [SerializeField] private AudioClip blastSFX;
+
+    [SerializeField] private string[] coolArray;
+    [SerializeField] private int coolIndex;
 	
     // Use this for initialization
 	void Start ()
     {
+        coolIndex = Random.Range(0, coolArray.Length);
         killsText.text = "Kills: " + LevelManager.enemiesKilled;
         MoneyText.text = "Money Picked Up: " + LevelManager.moneyPickedUp;
+        bombBonusText.text = coolArray[coolIndex];
         LevelManager.stageTransitLoaded = true;
         killsText.enabled = false;
         MoneyText.enabled = false;

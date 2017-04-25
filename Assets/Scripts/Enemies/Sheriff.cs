@@ -24,6 +24,9 @@ public class Sheriff : MonoBehaviour {
 
     [SerializeField] private GameObject floatText;
     [SerializeField] private float pointsValue;
+    [SerializeField] private bool death = false;
+    [SerializeField] private GameObject deathHat;
+    [SerializeField] private float timer;
 
     public GameObject NextPos
     {
@@ -49,27 +52,46 @@ public class Sheriff : MonoBehaviour {
     void FixedUpdate()
     {
         //direction = new Vector2(Mathf.Sign(newDirection.x), Mathf.Sign(newDirection.y));
-
-        if (moving)
+        if (!death)
         {
-            if (transform.position == nextPos.transform.position && changeGoal) //When the Sheriff is at the exact same position as the PatrolPoint and can Change Destination:
+            if (moving)
             {
-                SetNewDestination(); //Set the new Destination
-                direction = SetNewDir(); //Set the new Direction
-                changeGoal = false; //Can't change to a new destiantion
-                moving = true; //Start moving
+                if (transform.position == nextPos.transform.position && changeGoal) //When the Sheriff is at the exact same position as the PatrolPoint and can Change Destination:
+                {
+                    SetNewDestination(); //Set the new Destination
+                    direction = SetNewDir(); //Set the new Direction
+                    changeGoal = false; //Can't change to a new destiantion
+                    moving = true; //Start moving
+                }
+                else //If not supposed to change destination:
+                {
+                    transform.position = Vector2.MoveTowards(transform.position, nextPos.transform.position, speed); //Procedd towards the PatrolPoints Position
+                }
             }
-            else //If not supposed to change destination:
-            {
-                transform.position = Vector2.MoveTowards(transform.position, nextPos.transform.position, speed); //Procedd towards the PatrolPoints Position
-            }
+
+            CheckCollison(); //Raycast for objects in the way of the sheriff
+
+            //Set animation paramaters
+            animator.SetFloat("DirX", direction.x);
+            animator.SetFloat("DirY", direction.y);
         }
 
-        CheckCollison(); //Raycast for objects in the way of the sheriff
+        if (death)
+        {
+            direction = Vector2.zero;
+            rbody.velocity = Vector2.zero;
+            animator.SetTrigger("Death");
 
-        //Set animation paramaters
-        animator.SetFloat("DirX", direction.x);
-        animator.SetFloat("DirY", direction.y);
+            if (timer < 0.8f)
+            {
+                timer += Time.deltaTime;
+            }
+            else if (timer >= 0.8f)
+            {
+                Instantiate(deathHat, transform.position, Quaternion.identity);
+                Destroy(gameObject);
+            }
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -85,7 +107,7 @@ public class Sheriff : MonoBehaviour {
 
             instance.GetComponent<MoneyFloatText>().moneyAmount = "+" + pointsValue + "pts";
 
-            Destroy(gameObject);
+            death = true;
         }
 
         if (other.gameObject.tag == "PatrolPoint") //If colliding with a PatrolPoint

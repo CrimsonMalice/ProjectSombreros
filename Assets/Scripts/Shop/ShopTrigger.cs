@@ -16,7 +16,14 @@ public class ShopTrigger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (LevelManager.bankDestroyed)
+        {
+            gameObject.GetComponent<BoxCollider2D>().enabled = false;
+        }
+        else if (!LevelManager.bankDestroyed)
+        {
+            gameObject.GetComponent<BoxCollider2D>().enabled = true;
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)
