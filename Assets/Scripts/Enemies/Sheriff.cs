@@ -22,6 +22,9 @@ public class Sheriff : MonoBehaviour {
 
     [SerializeField] private LayerMask worldCollisionMask; //Which layers the Sheriff should check for objects when raycasting
 
+    [SerializeField] private GameObject floatText;
+    [SerializeField] private float pointsValue;
+
     public GameObject NextPos
     {
         get { return this.nextPos; }
@@ -73,7 +76,15 @@ public class Sheriff : MonoBehaviour {
     {
         if (other.gameObject.tag == "Explosion") //If colliding with an Explosion, Destroy the Sheriff.
         {
+            LevelManager.enemiesKilled++;
+            print(LevelManager.enemiesKilled);
+            GameObject.Find("Player").GetComponent<PlayerController>().Points += 100;
             AudioSource.PlayClipAtPoint(deathSound, new Vector3(7, 8, -10), 1.0f);
+
+            GameObject instance = Instantiate(floatText, transform.position, Quaternion.identity);
+
+            instance.GetComponent<MoneyFloatText>().moneyAmount = "+" + pointsValue + "pts";
+
             Destroy(gameObject);
         }
 

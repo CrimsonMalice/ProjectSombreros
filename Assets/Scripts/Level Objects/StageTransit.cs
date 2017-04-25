@@ -44,13 +44,13 @@ public class StageTransit : MonoBehaviour {
 
             LevelManager.tempCashCounter = lvlSpawner.cashCounter; //Reset the cash counter
 
-            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().gameObject.transform.position = new Vector3(-80, 16, 0); //Set the player's position to the spawn
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().gameObject.transform.position = new Vector3(-450.4f, 245.9f, 0); //Set the player's position to the spawn
             hasTriggered = true; //Set it so the transition has been triggered to prevent an eternal loop
 
             //string nextLevel = LevelManager.levelList[Random.Range(0, LevelManager.levelList.Length)];
 
 			//SceneFadingManager.BeginFade ();
-            SceneManager.LoadScene("LoadingScene"); //Load the next level
+            SceneManager.LoadScene("StageComplete"); //Load the next level
 			//SceneFadingManager.OnLevelWasLoaded ();
         }
     }

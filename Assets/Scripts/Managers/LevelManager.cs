@@ -19,6 +19,10 @@ public class LevelManager : MonoBehaviour {
     [SerializeField] public static bool bankDestroyed = false;
     [SerializeField] public static bool stageTransitLoaded = false;
 
+    public static int enemiesKilled;
+    public static int moneyPickedUp;
+    public static int bombBonus;
+
     //[SerializeField] private LevelSpawner lvlSpawner;
 
     int callAmount = 0;

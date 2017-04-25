@@ -10,6 +10,7 @@ public class BaseExplosion : MonoBehaviour {
      */
 
     [SerializeField] private float lifeSpan; //How long the explosion should be active
+    private int collisionCount = 0;
 
     // Use this for initialization
     void Start ()

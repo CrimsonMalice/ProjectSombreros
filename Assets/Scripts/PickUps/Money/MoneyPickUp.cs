@@ -18,6 +18,8 @@ public class MoneyPickUp : MonoBehaviour {
     {
         if (other.gameObject.GetComponent<PlayerController>() != null)
         {
+            LevelManager.moneyPickedUp += PointsValue;
+            print(LevelManager.moneyPickedUp);
             AudioSource.PlayClipAtPoint(pickUpClip, new Vector3(7, 8, -10), 1.0f);
             other.gameObject.GetComponent<PlayerController>().Points += pointsValue;
             other.gameObject.GetComponent<PlayerController>().money += pointsValue;

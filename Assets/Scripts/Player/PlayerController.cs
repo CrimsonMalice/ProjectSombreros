@@ -122,8 +122,8 @@ public class PlayerController : MonoBehaviour {
             readInput = false;
 
             direction = new Vector2(1, 0);
-            velocity = rbody.velocity / (speed / 3);
-            rbody.velocity = new Vector2(1f, 0f) * (speed / 3);
+            velocity = rbody.velocity / (speed);
+            rbody.velocity = new Vector2(1f, 0f) * (speed);
         }
 
         if (readInput)

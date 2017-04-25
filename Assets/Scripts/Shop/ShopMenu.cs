@@ -36,6 +36,8 @@ public class ShopMenu : MonoBehaviour
 
     [SerializeField] private GameObject itemsObject;
 
+    [SerializeField] private GameObject powerUpEffect;
+
     private Vector3 framePos;
 
     // Use this for initialization
@@ -108,6 +110,11 @@ public class ShopMenu : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 print(soldItems.Count);
+                pc.readInput = true;
+
+                if(soldItems.Count > 0)
+                    Instantiate(powerUpEffect, pc.transform);
+
                 if (soldItems.Count != 0)
                 {
                     for (int i = 0; i < soldItems.Count; i++)
@@ -123,7 +130,6 @@ public class ShopMenu : MonoBehaviour
 
                 itemInstanceList.Clear();
 
-                pc.readInput = true;
                 shopCanvas.SetActive(false);
                 active = false;
                 iconsActive = false;
