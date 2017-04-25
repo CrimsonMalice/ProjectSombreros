@@ -27,6 +27,7 @@ public class MoneyPickUp : MonoBehaviour {
 
             GameObject instance = Instantiate(moneyFloatText, transform.position, Quaternion.identity);
 
+            
             instance.GetComponent<MoneyFloatText>().moneyAmount = "+$" + pointsValue;
 
             Destroy(gameObject);

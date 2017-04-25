@@ -10,6 +10,8 @@ public class BulletScript : MonoBehaviour {
     [SerializeField] Animator animator;
     [SerializeField] private AudioClip shootingSound;
 
+    [SerializeField] private GameObject explosion;
+
 	// Use this for initialization
 	void Start ()
     {
@@ -29,9 +31,19 @@ public class BulletScript : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        //if (other.gameObject.tag == "House" || other.gameObject.tag == "Walls" || other.gameObject.tag == "Obstacle" || other.gameObject.tag == "Player")
-        //{
-        //    Destroy(gameObject);
-        //}
+        if (other.gameObject.tag == "House" || other.gameObject.tag == "Walls" || other.gameObject.tag == "Obstacle" || other.gameObject.tag == "Player")
+        {
+            Instantiate(explosion, transform.position, Quaternion.identity);
+            Destroy(gameObject);
+        }
     }
+
+    //void OnCollisionEnter2D(Collider2D other)
+    //{
+    //    if (other.gameObject.tag == "House" || other.gameObject.tag == "Walls" || other.gameObject.tag == "Obstacle" || other.gameObject.tag == "Player")
+    //    {
+    //        Instantiate(explosion, transform.position, Quaternion.identity);
+    //        Destroy(gameObject);
+    //    }
+    //}
 }

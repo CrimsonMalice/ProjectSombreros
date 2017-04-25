@@ -98,6 +98,7 @@ public class Sheriff : MonoBehaviour {
     {
         if (other.gameObject.tag == "Explosion") //If colliding with an Explosion, Destroy the Sheriff.
         {
+            GetComponent<Collider2D>().enabled = false;
             LevelManager.enemiesKilled++;
             print(LevelManager.enemiesKilled);
             GameObject.Find("Player").GetComponent<PlayerController>().Points += 100;

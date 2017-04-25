@@ -24,6 +24,10 @@ public class StageCompleteScript : MonoBehaviour {
     // Use this for initialization
 	void Start ()
     {
+        GameObject.Find("Main Camera").GetComponent<Camera>().orthographicSize = 147.9161f;
+        GameObject.Find("Main Camera").GetComponent<Camera>().transform.position = new Vector3(0, 0, -10);
+
+
         coolIndex = Random.Range(0, coolArray.Length);
         killsText.text = "Kills: " + LevelManager.enemiesKilled;
         MoneyText.text = "Money Picked Up: " + LevelManager.moneyPickedUp;
@@ -36,7 +40,7 @@ public class StageCompleteScript : MonoBehaviour {
         LevelManager.enemiesKilled = 0;
         LevelManager.moneyPickedUp = 0;
 
-        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().gameObject.transform.position = new Vector3(-402f, 2f, 0);
+        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().gameObject.transform.position = new Vector3(-314f, 2f, 0);
     }
 	
 	// Update is called once per frame
@@ -70,6 +74,8 @@ public class StageCompleteScript : MonoBehaviour {
             LevelManager.stageTransitLoaded = false;
             GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().readInput = true;
             GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().gameObject.transform.position = new Vector3(-450.4f, 245.9f, 0);
+            GameObject.Find("Main Camera").GetComponent<Camera>().orthographicSize = 272.499f;
+            GameObject.Find("Main Camera").GetComponent<Camera>().transform.position = new Vector3(7, 8, -10);
             SceneManager.LoadScene("LoadingScene");
         }
     }
