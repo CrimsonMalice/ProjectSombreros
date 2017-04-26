@@ -13,6 +13,7 @@ public class ExitArrow : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-		
-	}
+		if(LevelManager.currentPlayerScore >= LevelManager.requiredScore)
+            gameObject.GetComponent<SpriteRenderer>().enabled = true;
+    }
 }
