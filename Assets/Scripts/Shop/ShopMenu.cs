@@ -13,7 +13,7 @@ public class ShopMenu : MonoBehaviour
     [SerializeField] private Text itemDescriptionText;
     [SerializeField] private Text itemCostText;
 
-    [SerializeField] private GameObject shopCanvas;
+    [SerializeField] public GameObject shopCanvas;
     [SerializeField] private PlayerController pc;
 
     [SerializeField] private List<GameObject> itemList;

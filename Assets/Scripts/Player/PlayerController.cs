@@ -45,6 +45,8 @@ public class PlayerController : MonoBehaviour {
 
     [SerializeField] public AudioClip deathSound;
 
+    [SerializeField] private GameObject shopCanvas;
+
     //[SerializeField] private bool powerupsLoaded = false;
     //[SerializeField] public List<string> powerUps;
 
@@ -83,7 +85,6 @@ public class PlayerController : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-
         if (GameObject.FindGameObjectsWithTag("Player").Length > 1)
         {
             Destroy(GameObject.FindGameObjectsWithTag("Player")[1]);

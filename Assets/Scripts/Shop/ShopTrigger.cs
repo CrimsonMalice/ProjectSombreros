@@ -5,17 +5,23 @@ using UnityEngine;
 public class ShopTrigger : MonoBehaviour
 {
 
-    [SerializeField] private GameObject shopCanvas;
+    [SerializeField] public GameObject shopCanvas;
 
     // Use this for initialization
     void Start()
     {
+        shopCanvas = GameObject.Find("ShopCanvas2");
         shopCanvas.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
+        //if (shopCanvas == null)
+        //{
+        //    shopCanvas = GameObject.Find("ShopCanvas2");
+        //}
+
         if (LevelManager.bankDestroyed)
         {
             gameObject.GetComponent<BoxCollider2D>().enabled = false;
