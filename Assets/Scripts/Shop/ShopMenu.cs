@@ -51,11 +51,17 @@ public class ShopMenu : MonoBehaviour
         shopFrame.transform.position = framePos;
 
         int shopItemCounter = 0;
-        List<GameObject> currentItemList = ListOfItems.listOfAllShopItems;
+        List<GameObject> currentItemList = new List<GameObject>(); /*= ListOfItems.listOfAllShopItems;*/
+
+        foreach (GameObject go in Resources.LoadAll("ShopItems", typeof(GameObject)))
+        {
+            if (go.gameObject.GetComponent<ShopItem>().unlocked)
+                currentItemList.Add(go);
+        }
 
         do
         {
-            int randomIndex = Random.Range(0, currentItemList.Count);
+            int randomIndex = Random.Range(0, Resources.LoadAll("ShopItems").Length - shopItemCounter);
             itemList.Add(currentItemList[randomIndex]);
             currentItemList.RemoveAt(randomIndex);
             shopItemCounter++;
@@ -107,6 +113,13 @@ public class ShopMenu : MonoBehaviour
     {
         if (!pc.readInput)
         {
+            if (Input.GetKeyDown(KeyCode.F2))
+            {
+                for (int i = 0; i < itemInstanceList.Count; i++)
+                {
+                    print(itemInstanceList[i].gameObject.name);
+                }
+            }
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 print(soldItems.Count);

@@ -17,6 +17,8 @@ public class ListOfItems : MonoBehaviour {
                 listOfAllShopItems.Add(go);
         }
 
+        print(Resources.LoadAll("ShopItems").Length);
+
         //for (int i = 0; i < listOfAllShopItems.Count; i++)
         //{
         //    print(listOfAllShopItems[i]);

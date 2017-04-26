@@ -253,6 +253,11 @@ public class PlayerController : MonoBehaviour {
                 print(ListOfItems.listOfAllShopItems[i]);
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.F3))
+        {
+            print(Resources.LoadAll("ShopItems").Length);
+        }
     }
 
     void Timers()
