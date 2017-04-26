@@ -175,28 +175,28 @@ public class PlayerController : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Enemy" || other.gameObject.tag == "Bullet" && canGetHit && !canTakeExtraHit)
+        if (other.gameObject.tag == "Enemy" && canGetHit && !canTakeExtraHit || other.gameObject.tag == "Bullet" && canGetHit && !canTakeExtraHit)
         {
-            if (other.gameObject.tag == "Bullet")
-            {
-                Destroy(other.gameObject);
-            }
-            AudioSource.PlayClipAtPoint(deathSound, new Vector3(7, 8, -10), 1.0f);
-            lives--;
+                if (other.gameObject.tag == "Bullet")
+                {
+                    Destroy(other.gameObject);
+                }
+                AudioSource.PlayClipAtPoint(deathSound, new Vector3(7, 8, -10), 1.0f);
+                lives--;
 
-            rbody.velocity = Vector2.zero;
+                rbody.velocity = Vector2.zero;
 
-            readInput = false;
-            canAttack = false;
-            moving = false;
-            canGetHit = false;
-            isActive = false;
+                readInput = false;
+                canAttack = false;
+                moving = false;
+                canGetHit = false;
+                isActive = false;
 
-            //Wait until end of Death Animation, then change position of the player and start the timer.
-            transform.position = spawnPoint;
+                //Wait until end of Death Animation, then change position of the player and start the timer.
+                transform.position = spawnPoint;
 
-            freezeTimer = freezeTimerStart;
-            deathTimer = deathTimerStart;
+                freezeTimer = freezeTimerStart;
+                deathTimer = deathTimerStart;
         }
     }
 
