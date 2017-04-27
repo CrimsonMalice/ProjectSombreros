@@ -23,7 +23,19 @@ public class BulletScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        rbody.velocity = new Vector2(direction.x / 100 * speed, direction.y / 100 * speed);
+        if (direction.x > 1)
+            direction.x = 1;
+
+        if (direction.x < -1)
+            direction.x = -1;
+
+        if (direction.y > 1)
+            direction.y = 1;
+
+        if (direction.y < -1)
+            direction.y = -1;
+
+        rbody.velocity = new Vector2(direction.x * speed, direction.y * speed);
 
         animator.SetFloat("DirX", direction.x);
         animator.SetFloat("DirY", direction.y);

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UICanvas : MonoBehaviour 
 {
@@ -24,6 +25,9 @@ public class UICanvas : MonoBehaviour
     // Update is called once per frame
     void Update () 
 	{
-		
+        if (SceneManager.GetActiveScene().name == "Menu")
+        {
+            Destroy(gameObject);
+        }
 	}
 }

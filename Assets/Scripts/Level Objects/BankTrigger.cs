@@ -18,7 +18,7 @@ public class BankTrigger : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-		
+        LevelManager.bankDestroyed = false;
 	}
 	
 	// Update is called once per frame

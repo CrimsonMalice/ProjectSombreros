@@ -143,14 +143,13 @@ public class ShopMenu : MonoBehaviour
 
                 itemInstanceList.Clear();
 
+                shopFrame.GetComponent<Image>().rectTransform.position = framePos;
                 shopCanvas.SetActive(false);
                 active = false;
                 iconsActive = false;
 
                 newPos = new Vector3(-524, -422, 0);
                 highLightedItem = 0;
-
-                shopFrame.transform.position = framePos;
 
                 soldItems.Clear();
             }

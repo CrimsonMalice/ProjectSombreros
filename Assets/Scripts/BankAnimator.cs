@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BankArrow : MonoBehaviour {
+public class BankAnimator : MonoBehaviour {
+
+    Animator animator;
 
 	// Use this for initialization
 	void Start ()
     {
-
+        animator = GetComponent<Animator>();	
 	}
 	
 	// Update is called once per frame
@@ -15,8 +17,7 @@ public class BankArrow : MonoBehaviour {
     {
         if (LevelManager.bankDestroyed)
         {
-            GetComponent<SpriteRenderer>().enabled = false;
-            print(LevelManager.bankDestroyed);
-        }
-    }
+            animator.SetBool("BankDestroyed", true);
+        }	
+	}
 }

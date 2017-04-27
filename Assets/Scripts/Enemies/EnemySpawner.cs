@@ -28,6 +28,9 @@ public class EnemySpawner : MonoBehaviour {
 
                 enemyInstance.GetComponent<Sheriff>().NextPos = enemyStart; //Set the Next Position to move towards to the enemyStart
                 enemyInstance.GetComponent<Sheriff>().OldPos = gameObject; //Set the old Pos to the spawner
+
+                spawnTimerStart = Random.Range(12.2f, 25);
+
                 spawnTimer = spawnTimerStart; //Reset the timer
             }
             else if (spawnTimer > 0) //If the timer is above 0, tick it down.
