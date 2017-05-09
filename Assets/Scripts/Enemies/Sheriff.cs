@@ -113,7 +113,7 @@ public class Sheriff : MonoBehaviour {
 
         if (other.gameObject.tag == "PatrolPoint") //If colliding with a PatrolPoint
         {
-            pointOptions = other.gameObject.GetComponent<PatrolPoint>().AdjacentPoints; //Retrieve that point's Adjacent Points.
+            //pointOptions = other.gameObject.GetComponent<PatrolPoint>().AdjacentPoints; //Retrieve that point's Adjacent Points.
             changeGoal = true; //The Sheriff can not change to a new destination.
 
             newDestination = pointOptions[Random.Range(0, pointOptions.Length)]; //Random a new destination out of the adjacent points.
