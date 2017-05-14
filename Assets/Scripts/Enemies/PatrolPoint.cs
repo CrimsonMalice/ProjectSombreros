@@ -42,7 +42,7 @@ public class PatrolPoint : MonoBehaviour {
             }
         }
 
-        adjacentPoints = patrolPoints; //REMOVE AFTER CODE ABOVE IS FINISHED
+        //adjacentPoints = patrolPoints; //REMOVE AFTER CODE ABOVE IS FINISHED
 	}
 	
 	// Update is called once per frame
