@@ -22,17 +22,17 @@ public class PatrolPoint : MonoBehaviour {
         List<GameObject> patrolPoints = new List<GameObject>();
 
         //Find all of the PatrolPoints with the same X and Y values.
-        foreach (GameObject pp in GameObject.FindGameObjectsWithTag("PatrolPoint"))
-        {
-            if (pp.transform.position.x == gameObject.transform.position.x)
-            {
-                patrolPoints.Add(pp);
-            }
-            else if (pp.transform.position.y == gameObject.transform.position.y)
-            {
-                patrolPoints.Add(pp);
-            }
-        }
+        //foreach (GameObject pp in GameObject.FindGameObjectsWithTag("PatrolPoint"))
+        //{
+        //    if (pp.transform.position.x == gameObject.transform.position.x)
+        //    {
+        //        patrolPoints.Add(pp);
+        //    }
+        //    else if (pp.transform.position.y == gameObject.transform.position.y)
+        //    {
+        //        patrolPoints.Add(pp);
+        //    }
+        //}
 
         for (int i = 0; i < patrolPoints.Count; i++)
         {
