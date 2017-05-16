@@ -13,7 +13,7 @@ public class Sheriff : MonoBehaviour {
     [SerializeField] [Range(0.1f, 1.5f)] private float speed; //The movement speed of the Sheriff.
     [SerializeField] private bool changeGoal; //If the Sheriff should change to the next destination.
     [SerializeField] private bool moving; //If the Sheriff is moving.
-    [SerializeField] private GameObject[] pointOptions; //The selection of new destination in which the Sheriff can travel towards.
+    [SerializeField] private List<GameObject> pointOptions = new List<GameObject>(); //The selection of new destination in which the Sheriff can travel towards.
 
     [SerializeField] public Vector2 direction; //The moving direction of the Sheriff
     [SerializeField] private float castDistance = 750f; //How far to raycast for obstacles
@@ -113,14 +113,14 @@ public class Sheriff : MonoBehaviour {
 
         if (other.gameObject.tag == "PatrolPoint") //If colliding with a PatrolPoint
         {
-            //pointOptions = other.gameObject.GetComponent<PatrolPoint>().AdjacentPoints; //Retrieve that point's Adjacent Points.
+            pointOptions = other.gameObject.GetComponent<PatrolPoint>().AdjacentPoints; //Retrieve that point's Adjacent Points.
             changeGoal = true; //The Sheriff can not change to a new destination.
 
-            newDestination = pointOptions[Random.Range(0, pointOptions.Length)]; //Random a new destination out of the adjacent points.
+            newDestination = pointOptions[Random.Range(0, pointOptions.Count)]; //Random a new destination out of the adjacent points.
 
             do //Make the Sheriff never go back the same way he came, perventing lerping between two points.
             {
-                newDestination = pointOptions[Random.Range(0, pointOptions.Length)];
+                newDestination = pointOptions[Random.Range(0, pointOptions.Count)];
             }
             while (newDestination.gameObject.name == oldPos.gameObject.name);
         }
