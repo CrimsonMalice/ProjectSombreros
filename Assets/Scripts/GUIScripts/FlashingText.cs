@@ -9,7 +9,9 @@ public class FlashingText : MonoBehaviour
     [SerializeField]
     private float mTimer;
 
-    void Update()
+
+
+    void LateUpdate()
     {
         mTimer += Time.deltaTime;
 

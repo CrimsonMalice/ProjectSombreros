@@ -6,8 +6,8 @@ using UnityEngine.SceneManagement;
 public class RandomLevelLoader : MonoBehaviour {
 
     [SerializeField] private string[] levels;
-    float timer = 0;
-    float timerStart = 4.66f;
+    public float timer = 0;
+    public float timerStart = 4.66f;
 
 	// Use this for initialization
 	void Start ()
