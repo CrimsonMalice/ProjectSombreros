@@ -15,9 +15,18 @@ public class MenuHandler : MonoBehaviour
   
     }
 
+    void Update()
+    {
+        if (Input.GetKey("escape"))
+        {
+            Application.Quit();
+        }
+
+    }
+
     public void QuitGame()
     {
-        //Application.Quit;
+        Application.Quit();        
     }
 
     void OnGUI()
