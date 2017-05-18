@@ -102,7 +102,10 @@ public class Sheriff : MonoBehaviour {
             LevelManager.enemiesKilled++;
             print(LevelManager.enemiesKilled);
             GameObject.Find("Player").GetComponent<PlayerController>().Points += 100;
-            AudioSource.PlayClipAtPoint(deathSound, new Vector3(7, 8, -10), 1.0f);
+            if (SoundManager.toggleSFX)
+            {
+                AudioSource.PlayClipAtPoint(deathSound, new Vector3(7, 8, -10), 1.0f);
+            }
 
             GameObject instance = Instantiate(floatText, transform.position, Quaternion.identity);
 

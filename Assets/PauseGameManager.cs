@@ -10,6 +10,7 @@ public class PauseGameManager : MonoBehaviour
 
     void Start()
     {
+        LevelManager.currentLevel = SceneManager.GetActiveScene().ToString();
         pauseMenuObject.SetActive(false);
     }
 
@@ -70,6 +71,7 @@ public class PauseGameManager : MonoBehaviour
         Time.timeScale = 1f;
 
         Destroy(GameObject.Find("Player"));
+        Destroy(GameObject.Find("SoundManager"));
 
         SceneManager.LoadScene("NewMenu");
     }

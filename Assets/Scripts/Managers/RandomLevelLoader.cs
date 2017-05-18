@@ -24,8 +24,14 @@ public class RandomLevelLoader : MonoBehaviour {
         }
         else if (timer <= 0)
         {
-            SceneManager.LoadScene(levels[Random.Range(0, levels.Length)]);
-            ////SceneManager.LoadScene("Level_1");
+            string newLevel;
+            do
+            {
+                newLevel = levels[Random.Range(0, levels.Length)];
+            }
+            while (newLevel == LevelManager.currentLevel);
+
+            SceneManager.LoadScene(newLevel);
         }
-	}
+    }
 }

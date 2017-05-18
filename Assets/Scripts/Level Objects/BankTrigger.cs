@@ -31,7 +31,10 @@ public class BankTrigger : MonoBehaviour {
     {
         if (other.gameObject.tag == "Player") //When the player walks in to the Bank Trigger
         {
-            AudioSource.PlayClipAtPoint(sfxBlast, new Vector3(7, 8, 0)); //Play the blast sound
+            if (SoundManager.toggleSFX)
+            {
+                AudioSource.PlayClipAtPoint(sfxBlast, new Vector3(7, 8, 0)); //Play the blast sound
+            }
             AudioPlayer.aus.clip = null; //Stop playing the idle-town track
 
             Instantiate(whiteBlast, transform.position, Quaternion.identity); //Play the white blast effect

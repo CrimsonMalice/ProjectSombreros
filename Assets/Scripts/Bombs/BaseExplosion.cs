@@ -11,10 +11,15 @@ public class BaseExplosion : MonoBehaviour {
 
     [SerializeField] private float lifeSpan; //How long the explosion should be active
     private int collisionCount = 0;
+    [SerializeField] private AudioClip explosionSound;
 
     // Use this for initialization
     void Start ()
     {
+        if (SoundManager.toggleSFX)
+        {
+            AudioSource.PlayClipAtPoint(explosionSound, new Vector3(7, 8, -10), 1.0f);
+        }
         Destroy(gameObject, lifeSpan); //Destroy the explosion after a certain time
 	}
 }

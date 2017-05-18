@@ -10,12 +10,21 @@ public class AudioPlayer : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
-        aus = GetComponent<AudioSource>();	
-	}
+        aus = GetComponent<AudioSource>();
+
+        if (!SoundManager.toggleMusic)
+        {
+            aus.enabled = false;
+        }
+        else if (!SoundManager.toggleMusic)
+        {
+            aus.enabled = true;
+        }
+    }
 	
 	// Update is called once per frame
 	void Update ()
     {
-		
+
 	}
 }

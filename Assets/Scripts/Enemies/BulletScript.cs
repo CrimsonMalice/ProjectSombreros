@@ -17,7 +17,10 @@ public class BulletScript : MonoBehaviour {
     {
         rbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        AudioSource.PlayClipAtPoint(shootingSound, new Vector3(7, 8, -10), 1.0f);
+        if (SoundManager.toggleSFX)
+        {
+            AudioSource.PlayClipAtPoint(shootingSound, new Vector3(7, 8, -10), 1.0f);
+        }
     }
 	
 	// Update is called once per frame

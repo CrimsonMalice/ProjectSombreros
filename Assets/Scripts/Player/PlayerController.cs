@@ -177,26 +177,29 @@ public class PlayerController : MonoBehaviour {
     {
         if (other.gameObject.tag == "Enemy" && canGetHit && !canTakeExtraHit || other.gameObject.tag == "Bullet" && canGetHit && !canTakeExtraHit)
         {
-                if (other.gameObject.tag == "Bullet")
-                {
-                    Destroy(other.gameObject);
-                }
+            if (other.gameObject.tag == "Bullet")
+            {
+                Destroy(other.gameObject);
+            }
+            if (SoundManager.toggleSFX)
+            {
                 AudioSource.PlayClipAtPoint(deathSound, new Vector3(7, 8, -10), 1.0f);
-                lives--;
+            }
+            lives--;
 
-                rbody.velocity = Vector2.zero;
+            rbody.velocity = Vector2.zero;
 
-                readInput = false;
-                canAttack = false;
-                moving = false;
-                canGetHit = false;
-                isActive = false;
+            readInput = false;
+            canAttack = false;
+            moving = false;
+            canGetHit = false;
+            isActive = false;
 
-                //Wait until end of Death Animation, then change position of the player and start the timer.
-                transform.position = spawnPoint;
+            //Wait until end of Death Animation, then change position of the player and start the timer.
+            transform.position = spawnPoint;
 
-                freezeTimer = freezeTimerStart;
-                deathTimer = deathTimerStart;
+            freezeTimer = freezeTimerStart;
+            deathTimer = deathTimerStart;
         }
     }
 

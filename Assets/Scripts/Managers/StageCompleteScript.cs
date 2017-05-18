@@ -51,19 +51,28 @@ public class StageCompleteScript : MonoBehaviour {
         if (timer >= showTextOne && killsText.enabled == false)
         {
             killsText.enabled = true;
-            AudioSource.PlayClipAtPoint(blastSFX, new Vector3(0, 0, -10), 2.0f);
+            if (SoundManager.toggleSFX)
+            {
+                AudioSource.PlayClipAtPoint(blastSFX, new Vector3(0, 0, -10), 2.0f);
+            }
         }
 
         if (timer >= showTextTwo && MoneyText.enabled == false)
         {
             MoneyText.enabled = true;
-            AudioSource.PlayClipAtPoint(blastSFX, new Vector3(0, 0, -10), 2.0f);
+            if (SoundManager.toggleSFX)
+            {
+                AudioSource.PlayClipAtPoint(blastSFX, new Vector3(0, 0, -10), 2.0f);
+            }
         }
 
         if (timer >= showTextThree && bombBonusText.enabled == false)
         {
             bombBonusText.enabled = true;
-            AudioSource.PlayClipAtPoint(blastSFX, new Vector3(0, 0, -10), 2.0f);
+            if (SoundManager.toggleSFX)
+            {
+                AudioSource.PlayClipAtPoint(blastSFX, new Vector3(0, 0, -10), 2.0f);
+            }
         }
     }
 
