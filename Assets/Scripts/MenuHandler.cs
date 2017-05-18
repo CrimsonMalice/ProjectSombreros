@@ -15,6 +15,11 @@ public class MenuHandler : MonoBehaviour
   
     }
 
+    public void StartGame()
+    {
+        SceneManager.LoadScene("LoadingScene");
+    }
+
     void Update()
     {
         if (Input.GetKey("escape"))
