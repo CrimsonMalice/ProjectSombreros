@@ -13,6 +13,7 @@ public class RandomLevelLoader : MonoBehaviour {
 	void Start ()
     {
         timer = timerStart;
+        print(LevelManager.currentLevel);
     }
 
     // Update is called once per frame

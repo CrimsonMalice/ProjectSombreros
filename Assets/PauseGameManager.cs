@@ -10,7 +10,7 @@ public class PauseGameManager : MonoBehaviour
 
     void Start()
     {
-        LevelManager.currentLevel = SceneManager.GetActiveScene().ToString();
+        LevelManager.currentLevel = SceneManager.GetActiveScene().name;
         pauseMenuObject.SetActive(false);
     }
 
