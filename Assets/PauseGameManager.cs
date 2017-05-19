@@ -61,6 +61,7 @@ public class PauseGameManager : MonoBehaviour
         LevelManager.playerLives = 3;
         LevelManager.playerMoney = 0;
         LevelManager.requiredScore = 10000;
+        LevelManager.tempCashCounter = 0;
 
         SceneManager.LoadScene("LoadingScene");
     }
