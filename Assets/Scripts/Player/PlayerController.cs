@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour {
 
     [SerializeField] public GameObject selectedBomb;
 
-    [SerializeField] private Vector3 spawnPoint = new Vector3(-80, 16, 0);
+    [SerializeField] private Vector3 spawnPoint = new Vector3(-450, 246, 0);
 
     [SerializeField] public AudioClip deathSound;
 

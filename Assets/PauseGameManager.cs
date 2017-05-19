@@ -16,7 +16,7 @@ public class PauseGameManager : MonoBehaviour
 
     void Update()
     {
-        if (pauseMenuObject != null)
+        if (pauseMenuObject != null && !ShopMenu.active)
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {

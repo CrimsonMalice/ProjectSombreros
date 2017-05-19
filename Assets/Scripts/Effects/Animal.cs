@@ -17,6 +17,7 @@ public class Animal : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
+        idleTimerStart = Random.Range(3.5f, 8.5f);
         rbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 	}
@@ -40,7 +41,7 @@ public class Animal : MonoBehaviour {
                 move = false;
                 distanceMoved = 0;
 
-                idleTimer = idleTimerStart;
+                idleTimer = Random.Range(3.5f, 8.5f);
             }
         }
 
