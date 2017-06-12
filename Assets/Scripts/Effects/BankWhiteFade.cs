@@ -10,9 +10,12 @@ public class BankWhiteFade : MonoBehaviour {
     [SerializeField] private bool doOnce = false;
     [SerializeField] public static float duration = 2.5f;
 
+    [SerializeField] public ParticleSystem bankExplosions;
+
 	// Use this for initialization
 	void Start ()
     {
+        bankExplosions.Stop();
         whiteTexture = GameObject.FindGameObjectWithTag("WhiteBlastTexture").GetComponent<Image>();
         whiteTexture.enabled = false;
 	}
@@ -23,6 +26,7 @@ public class BankWhiteFade : MonoBehaviour {
         if (LevelManager.bankDestroyed)
         {
             whiteTexture.enabled = true;
+            bankExplosions.Play();
 
             if (!doOnce)
             {
@@ -45,6 +49,7 @@ public class BankWhiteFade : MonoBehaviour {
             if (faded)
             {
                 whiteTexture.CrossFadeAlpha(0.01f, 1.5f, false);
+                bankExplosions.gameObject.SetActive(false);
                 faded = false;
             }
         }
