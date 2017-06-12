@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BankAnimator : MonoBehaviour {
 
-    Animator animator;
+    public Animator animator;
 
 	// Use this for initialization
 	void Start ()
@@ -17,7 +17,7 @@ public class BankAnimator : MonoBehaviour {
     {
         if (LevelManager.bankDestroyed)
         {
-            animator.SetBool("BankDestroyed", true);
+            //animator.SetBool("BankDestroyed", true);
         }	
 	}
 }

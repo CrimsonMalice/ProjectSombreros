@@ -15,6 +15,9 @@ public class BankTrigger : MonoBehaviour {
     [SerializeField] private AudioClip sfxBlast; //Holds the Prefab for the blast sound effect
     [SerializeField] private AudioClip gameplaySong; //Holds the Gameplay song
 
+    [SerializeField] private bool doOnce = false;
+    [SerializeField] float timer = BankWhiteFade.duration;
+
 	// Use this for initialization
 	void Start ()
     {
@@ -24,7 +27,7 @@ public class BankTrigger : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-
+        
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -37,18 +40,13 @@ public class BankTrigger : MonoBehaviour {
             }
             AudioPlayer.aus.clip = null; //Stop playing the idle-town track
 
-            Instantiate(whiteBlast, transform.position, Quaternion.identity); //Play the white blast effect
+            //Instantiate(whiteBlast, transform.position, Quaternion.identity); //Play the white blast effect
             GameObject fxinstance =  Instantiate(particlefx, transform.position, Quaternion.identity); //Play the Money blast effect
             Destroy(fxinstance, 1.30f); //Destroy it after 1.3 seconds
 
             print(LevelManager.bankDestroyed);
 
             GameObject instance = Instantiate(levelSpawner, new Vector3(0, 0, 0), Quaternion.identity); //Instantiate the levelSpawner
-
-            for (int i = 0; i < GameObject.FindGameObjectsWithTag("EnemySpawn").Length; i++) //Activate all the enemy spawners in the scene
-            {
-                GameObject.FindGameObjectsWithTag("EnemySpawn")[i].GetComponent<EnemySpawner>().spawnActive = true;
-            }
 
             LevelManager.bankDestroyed = true; //Set it so that the bank has been destroyed
 

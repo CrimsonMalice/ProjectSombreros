@@ -25,6 +25,9 @@ public class LevelSpawner : MonoBehaviour {
 
     [SerializeField] private PlayerController playerObject;
 
+    [SerializeField] float counter = BankWhiteFade.duration;
+    bool counterDone = false;
+
 
     // Use this for initialization
     void Start ()
@@ -37,21 +40,38 @@ public class LevelSpawner : MonoBehaviour {
 
         cashCounter = LevelManager.tempCashCounter;
 
-        if (!levelInstansiated && LevelManager.bankDestroyed)
-        {
-            InstansiateLevel();
-        }
-
-        hasSpawned = false;
-        levelInstansiated = false;
-
-        //levelExitPath.SetActive(false);
-        levelTransitionTrigger.SetActive(false);
+        playerObject.readInput = false;
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
+        if (!levelInstansiated && LevelManager.bankDestroyed && !counterDone)
+        {
+            if (counter <= 0)
+            {
+                InstansiateLevel();
+
+                playerObject.readInput = true;
+
+                hasSpawned = false;
+                levelInstansiated = false;
+                counterDone = true;
+
+                for (int i = 0; i < GameObject.FindGameObjectsWithTag("EnemySpawn").Length; i++) //Activate all the enemy spawners in the scene
+                {
+                    GameObject.FindGameObjectsWithTag("EnemySpawn")[i].GetComponent<EnemySpawner>().spawnActive = true;
+                }
+
+                //levelExitPath.SetActive(false);
+                levelTransitionTrigger.SetActive(false);
+            }
+            else if (counter > 0)
+            {
+                counter -= Time.deltaTime;
+            }
+        }
+
         if (playerObject.Points >= LevelManager.requiredScore && !hasSpawned)
         {
             print("Spawned");

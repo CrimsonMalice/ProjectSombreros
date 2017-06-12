@@ -16,7 +16,7 @@ public class BankArrow : MonoBehaviour {
         if (LevelManager.bankDestroyed)
         {
             GetComponent<SpriteRenderer>().enabled = false;
-            print(LevelManager.bankDestroyed);
+            //print(LevelManager.bankDestroyed);
         }
     }
 }
