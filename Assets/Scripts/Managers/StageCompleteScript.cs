@@ -27,6 +27,8 @@ public class StageCompleteScript : MonoBehaviour {
         GameObject.Find("Main Camera").GetComponent<Camera>().orthographicSize = 147.9161f;
         GameObject.Find("Main Camera").GetComponent<Camera>().transform.position = new Vector3(0, 0, -10);
 
+        GameStatsTracker.levelsCleared++;
+
 
         coolIndex = Random.Range(0, coolArray.Length);
         killsText.text = "Kills: " + LevelManager.enemiesKilled;

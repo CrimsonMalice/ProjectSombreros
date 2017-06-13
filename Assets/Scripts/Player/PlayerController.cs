@@ -160,7 +160,7 @@ public class PlayerController : MonoBehaviour {
                 {
                     Destroy(gameObject);
                     Destroy(GameObject.FindGameObjectWithTag("LevelManager"));
-                    SceneManager.LoadScene("NewMenu");
+                    SceneManager.LoadScene("GameOverScene");
                 }
             }
         }

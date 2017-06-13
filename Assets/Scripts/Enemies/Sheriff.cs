@@ -82,6 +82,8 @@ public class Sheriff : MonoBehaviour {
             rbody.velocity = Vector2.zero;
             animator.SetTrigger("Death");
 
+            GameStatsTracker.finalScore += (int)pointsValue;
+
             if (timer < 0.8f)
             {
                 timer += Time.deltaTime;
@@ -89,6 +91,7 @@ public class Sheriff : MonoBehaviour {
             else if (timer >= 0.8f)
             {
                 Instantiate(deathHat, transform.position, Quaternion.identity);
+                GameStatsTracker.totalEnemiesKilled++;
                 Destroy(gameObject);
             }
         }

@@ -19,6 +19,8 @@ public class MoneyPickUp : MonoBehaviour {
         if (other.gameObject.GetComponent<PlayerController>() != null)
         {
             LevelManager.moneyPickedUp += PointsValue;
+            GameStatsTracker.totalMoneyCollected += PointsValue;
+            GameStatsTracker.finalScore += PointsValue;
             print(LevelManager.moneyPickedUp);
             if (SoundManager.toggleSFX)
             {
