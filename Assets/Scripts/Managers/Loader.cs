@@ -29,7 +29,7 @@ public class Loader : MonoBehaviour
 
     private void Update()
     {
-        if (SceneManager.GetActiveScene().name == "Menu")
+        if (SceneManager.GetActiveScene().name == "NewMenu")
         {
             Destroy(gameObject);
         }

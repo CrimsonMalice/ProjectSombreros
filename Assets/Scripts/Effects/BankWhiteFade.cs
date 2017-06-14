@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class BankWhiteFade : MonoBehaviour {
 
-    [SerializeField] private Image whiteTexture;
-    [SerializeField] private bool faded = false;
-    [SerializeField] private bool doOnce = false;
+    [SerializeField] public Image whiteTexture;
+    [SerializeField] public bool faded = false;
+    [SerializeField] public bool doOnce = false;
     [SerializeField] public static float duration = 2.5f;
 
     [SerializeField] public ParticleSystem bankExplosions;

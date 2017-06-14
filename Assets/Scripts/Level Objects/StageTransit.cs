@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class StageTransit : MonoBehaviour {
@@ -50,7 +51,13 @@ public class StageTransit : MonoBehaviour {
 
             //string nextLevel = LevelManager.levelList[Random.Range(0, LevelManager.levelList.Length)];
 
-			//SceneFadingManager.BeginFade ();
+            //SceneFadingManager.BeginFade ();
+
+            GameObject.Find("Bank").GetComponent<BankWhiteFade>().faded = false;
+            GameObject.Find("Bank").GetComponent<BankWhiteFade>().doOnce = false;
+            GameObject.Find("Bank").GetComponent<BankWhiteFade>().whiteTexture.enabled = false;
+            BankWhiteFade.duration = 2.5f;
+
             SceneManager.LoadScene("StageComplete"); //Load the next level
 			//SceneFadingManager.OnLevelWasLoaded ();
         }
