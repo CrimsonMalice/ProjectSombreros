@@ -11,6 +11,9 @@ public class PlayerController : MonoBehaviour {
     public Rigidbody2D rbody;
     Animator animator;
 
+    [SerializeField] private bool isJack = true;
+    [SerializeField] private bool isJill = true;
+
     [SerializeField] public Vector2 velocity;
     [SerializeField] public Vector2 direction;
     [SerializeField] [Range(40f, 100f)] public float speed = 70;
@@ -74,7 +77,12 @@ public class PlayerController : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
 
         points = LevelManager.currentPlayerScore;
-        lives = LevelManager.playerLives;
+
+        if(isJack)
+            lives = LevelManager.playerLives;
+
+        if (isJill)
+            lives = LevelManager.playerTwoLives;
 
         rbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();

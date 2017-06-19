@@ -9,7 +9,9 @@ public class LevelManager : MonoBehaviour {
 
     [SerializeField] public static int requiredScore = 10000;
     public static int playerMoney = 0;
+    public static int playerTwoMoney = 0;
     [SerializeField] public static int playerLives = 3;
+    [SerializeField] public static int playerTwoLives = 3;
     [SerializeField] public static int currentPlayerScore = 0;
     [SerializeField] public static int tempCashCounter = 0;
     [SerializeField] public static int itemShopSlots = 3;
