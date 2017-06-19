@@ -32,7 +32,7 @@ public class BankTrigger : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Player") //When the player walks in to the Bank Trigger
+        if (other.gameObject.tag == "PlayerOne" || other.gameObject.tag == "PlayerTwo") //When the player walks in to the Bank Trigger
         {
             if (SoundManager.toggleSFX)
             {

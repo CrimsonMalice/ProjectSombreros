@@ -32,7 +32,7 @@ public class LevelSpawner : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-        playerObject = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        playerObject = GameObject.FindGameObjectWithTag("PlayerOne").GetComponent<PlayerController>();
 
         levelExitPath = GameObject.FindGameObjectWithTag("LevelExitPath");
         exitRocks = GameObject.FindGameObjectWithTag("ExitRocks");
@@ -72,7 +72,7 @@ public class LevelSpawner : MonoBehaviour {
             }
         }
 
-        if (playerObject.Points >= LevelManager.requiredScore && !hasSpawned)
+        if (PlayerController.points >= LevelManager.requiredScore && !hasSpawned)
         {
             print("Spawned");
             exitRocks.SetActive(false);

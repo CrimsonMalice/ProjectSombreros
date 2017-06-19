@@ -17,7 +17,16 @@ public class MoneyFloatText : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-        canvas = GameObject.Find("Canvas");
+        if (LevelManager.playerAmount == 1)
+        {
+            canvas = GameObject.Find("Canvas");
+        }
+
+        else if (LevelManager.playerAmount == 2)
+        {
+            canvas = GameObject.Find("MultiplayerCanvas");
+        }
+
         gameObject.transform.SetParent(canvas.transform);
         flashingTimer = flashingTimerStart;
         gameObject.GetComponent<Text>().rectTransform.localScale = new Vector3(1, 1, 1);

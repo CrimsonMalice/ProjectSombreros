@@ -104,7 +104,7 @@ public class Sheriff : MonoBehaviour {
             GetComponent<Collider2D>().enabled = false;
             LevelManager.enemiesKilled++;
             print(LevelManager.enemiesKilled);
-            GameObject.Find("Player").GetComponent<PlayerController>().Points += 100;
+            PlayerController.points += 100;
             if (SoundManager.toggleSFX)
             {
                 AudioSource.PlayClipAtPoint(deathSound, new Vector3(7, 8, -10), 1.0f);

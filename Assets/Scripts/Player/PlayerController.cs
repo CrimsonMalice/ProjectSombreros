@@ -11,13 +11,12 @@ public class PlayerController : MonoBehaviour {
     public Rigidbody2D rbody;
     Animator animator;
 
-    [SerializeField] private bool isJack = true;
-    [SerializeField] private bool isJill = true;
+    [SerializeField] [Range(1, 2)] private int playerIndex = 1;
 
     [SerializeField] public Vector2 velocity;
     [SerializeField] public Vector2 direction;
     [SerializeField] [Range(40f, 100f)] public float speed = 70;
-    [SerializeField] private int points;
+    [SerializeField] public static int points = 0;
     [SerializeField] public int money;
 
     [SerializeField] private bool isActive = true;
@@ -50,38 +49,26 @@ public class PlayerController : MonoBehaviour {
 
     [SerializeField] private GameObject shopCanvas;
 
+    static bool doOnce = false;
+
     //[SerializeField] private bool powerupsLoaded = false;
     //[SerializeField] public List<string> powerUps;
 
-    private static GameObject gameOverText;
-    private static Text scoreText;
-    private static Text livesText;
-    private static Text moneyText;
-
-    public int Points
-    {
-        get { return this.points; }
-        set { this.points = value; }
-    }
+    [SerializeField] private GameObject gameOverText;
+    private Text scoreText;
+    private Text livesText;
+    private Text moneyText;
 
     void Awake()
     {
-        //Check if instance already exists
-        if (instance == null)
-            instance = this;
-
-        //If instance already exists and it's not this:
-        else if (instance != this)
-            Destroy(gameObject);
-
         DontDestroyOnLoad(gameObject);
 
         points = LevelManager.currentPlayerScore;
 
-        if(isJack)
+        if(playerIndex == 1)
             lives = LevelManager.playerLives;
 
-        if (isJill)
+        if (playerIndex == 2)
             lives = LevelManager.playerTwoLives;
 
         rbody = GetComponent<Rigidbody2D>();
@@ -93,9 +80,13 @@ public class PlayerController : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-        if (GameObject.FindGameObjectsWithTag("Player").Length > 1)
+        if (GameObject.FindGameObjectsWithTag("PlayerOne").Length > 1)
         {
-            Destroy(GameObject.FindGameObjectsWithTag("Player")[1]);
+            Destroy(GameObject.FindGameObjectsWithTag("PlayerOne")[1]);
+        }
+        if (GameObject.FindGameObjectsWithTag("PlayerTwo").Length > 1)
+        {
+            Destroy(GameObject.FindGameObjectsWithTag("PlayerTwo")[1]);
         }
         if (GameObject.FindGameObjectsWithTag("GameOverText").Length > 1)
         {
@@ -105,17 +96,35 @@ public class PlayerController : MonoBehaviour {
         {
             Destroy(GameObject.FindGameObjectsWithTag("ScoreText")[1]);
         }
-        if (GameObject.FindGameObjectsWithTag("MoneyText").Length > 1)
+        if (GameObject.FindGameObjectsWithTag("MoneyTextOne").Length > 1)
         {
-            Destroy(GameObject.FindGameObjectsWithTag("MoneyText")[1]);
+            Destroy(GameObject.FindGameObjectsWithTag("MoneyTextOne")[1]);
+        }
+        if (GameObject.FindGameObjectsWithTag("MoneyTextTwo").Length > 1)
+        {
+            Destroy(GameObject.FindGameObjectsWithTag("MoneyTextTwo")[1]);
         }
 
         gameOverText = GameObject.Find("GameOverText");
-        gameOverText.SetActive(false);
+
+        if (doOnce == false)
+        {
+            gameOverText.SetActive(false);
+            doOnce = true;
+        }
 
         scoreText = GameObject.FindGameObjectWithTag("ScoreText").GetComponent<Text>();
-        moneyText = GameObject.FindGameObjectWithTag("MoneyText").GetComponent<Text>();
-        livesText = GameObject.FindGameObjectWithTag("LivesText").GetComponent<Text>();
+
+        if (playerIndex == 1)
+        {
+            moneyText = GameObject.FindGameObjectWithTag("MoneyTextOne").GetComponent<Text>();
+            livesText = GameObject.FindGameObjectWithTag("LivesTextOne").GetComponent<Text>();
+        }
+        else if (playerIndex == 2)
+        {
+            moneyText = GameObject.FindGameObjectWithTag("MoneyTextTwo").GetComponent<Text>();
+            livesText = GameObject.FindGameObjectWithTag("LivesTextTwo").GetComponent<Text>();
+        }
 
         //powerUps = LevelManager.powerUps;
 
@@ -213,28 +222,28 @@ public class PlayerController : MonoBehaviour {
 
     Vector2 NewVelocity()
     {
-        if (Input.GetAxisRaw("Horizontal") > 0)
+        if (Input.GetAxisRaw("Horizontal" + playerIndex) > 0)
         {
             moving = true;
             direction = new Vector2(1, 0);
             return new Vector2(1, 0);
         }
 
-        if (Input.GetAxisRaw("Horizontal") < 0)
+        if (Input.GetAxisRaw("Horizontal" + playerIndex) < 0)
         {
             moving = true;
             direction = new Vector2(-1, 0);
             return new Vector2(-1, 0);
         }
 
-        if (Input.GetAxisRaw("Vertical") > 0)
+        if (Input.GetAxisRaw("Vertical" + playerIndex) > 0)
         {
             moving = true;
             direction = new Vector2(0, 1);
             return new Vector2(0, 1);
         }
 
-        if (Input.GetAxisRaw("Vertical") < 0)
+        if (Input.GetAxisRaw("Vertical" + playerIndex) < 0)
         {
             moving = true;
             direction = new Vector2(0, -1);
@@ -250,7 +259,7 @@ public class PlayerController : MonoBehaviour {
 
     void DoInput()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && canAttack)
+        if (Input.GetButtonDown("Bomb" + playerIndex) && canAttack)
         {
             Instantiate(selectedBomb, transform.position, Quaternion.identity);
             canAttack = false;

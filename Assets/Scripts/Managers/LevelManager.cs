@@ -7,6 +7,8 @@ public class LevelManager : MonoBehaviour {
 
     public static LevelManager instance = null;
 
+    public static int playerAmount = 0;
+
     [SerializeField] public static int requiredScore = 10000;
     public static int playerMoney = 0;
     public static int playerTwoMoney = 0;
@@ -53,15 +55,20 @@ public class LevelManager : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
+        if (GameObject.FindGameObjectWithTag("PlayerOne"))
+        {
+            playerAmount++;
+        }
 
+        if (GameObject.FindGameObjectWithTag("PlayerTwo"))
+        {
+            playerAmount++;
+        }
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        //if (lvlSpawner == null)
-        //{
-        //    lvlSpawner = GameObject.FindGameObjectWithTag("LevelSpawner").GetComponent<LevelSpawner>();
-        //}
+        
     }
 }

@@ -26,9 +26,9 @@ public class MoneyPickUp : MonoBehaviour {
             {
                 AudioSource.PlayClipAtPoint(pickUpClip, new Vector3(7, 8, -10), 1.0f);
             }
-            other.gameObject.GetComponent<PlayerController>().Points += pointsValue;
+            PlayerController.points += pointsValue;
             other.gameObject.GetComponent<PlayerController>().money += pointsValue;
-            print(other.gameObject.GetComponent<PlayerController>().Points);
+            print(PlayerController.points);
 
             GameObject instance = Instantiate(moneyFloatText, transform.position, Quaternion.identity);
 

@@ -27,16 +27,21 @@ public class StageTransit : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Player" && !hasTriggered) //If a collision with the player happened and we haven't transitioned to a new level
+        if (other.gameObject.tag == "PlayerOne" && !hasTriggered || other.gameObject.tag == "PlayerTwo" && !hasTriggered) //If a collision with the player happened and we haven't transitioned to a new level
         {
             LevelSpawner lvlSpawner = GameObject.FindGameObjectWithTag("LevelSpawner").GetComponent<LevelSpawner>();
 
-            pc = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-
             LevelManager.requiredScore += 8000; //Set a new required score for the next stage
-            LevelManager.currentPlayerScore = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().Points; //Update the current player score
-            LevelManager.playerMoney = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().money; //Update the current player money
-            LevelManager.playerLives = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().lives; //Update the current player lives
+            LevelManager.currentPlayerScore = PlayerController.points; //Update the current player score
+            LevelManager.playerMoney = GameObject.FindGameObjectWithTag("PlayerOne").GetComponent<PlayerController>().money; //Update the current player money
+            LevelManager.playerLives = GameObject.FindGameObjectWithTag("PlayerOne").GetComponent<PlayerController>().lives; //Update the current player lives
+
+            if (GameObject.FindGameObjectWithTag("PlayerTwo"))
+            {
+                LevelManager.playerTwoMoney = GameObject.FindGameObjectWithTag("PlayerTwo").GetComponent<PlayerController>().money; //Update the current player money
+                LevelManager.playerTwoLives = GameObject.FindGameObjectWithTag("PlayerTwo").GetComponent<PlayerController>().lives; //Update the current player lives
+            }
+
             LevelManager.level++; //Tell the LevelManager we have progressed one level
 
             lvlSpawner.moneyHasSpawned = false; //Set it so that money hasn't spawned
@@ -45,7 +50,13 @@ public class StageTransit : MonoBehaviour {
 
             LevelManager.tempCashCounter = lvlSpawner.cashCounter; //Reset the cash counter
 
-            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().gameObject.transform.position = new Vector3(-450.4f, 245.9f, 0); //Set the player's position to the spawn
+            GameObject.FindGameObjectWithTag("PlayerOne").GetComponent<PlayerController>().gameObject.transform.position = new Vector3(-450.4f, 245.9f, 0); //Set the player's position to the spawn
+
+            if (GameObject.FindGameObjectWithTag("PlayerTwo"))
+            {
+                GameObject.FindGameObjectWithTag("PlayerTwo").GetComponent<PlayerController>().gameObject.transform.position = new Vector3(-450.4f, 245.9f, 0);
+            }
+
             hasTriggered = true; //Set it so the transition has been triggered to prevent an eternal loop
             LevelManager.bankDestroyed = false;
 

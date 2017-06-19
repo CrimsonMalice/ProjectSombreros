@@ -29,6 +29,10 @@ public class StageCompleteScript : MonoBehaviour {
 
         GameStatsTracker.levelsCleared++;
 
+        if (LevelManager.playerAmount == 1)
+        {
+            Destroy(GameObject.Find("Jill"));
+        }
 
         coolIndex = Random.Range(0, coolArray.Length);
         killsText.text = "Kills: " + LevelManager.enemiesKilled;
@@ -42,7 +46,12 @@ public class StageCompleteScript : MonoBehaviour {
         LevelManager.enemiesKilled = 0;
         LevelManager.moneyPickedUp = 0;
 
-        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().gameObject.transform.position = new Vector3(-314f, 2f, 0);
+        GameObject.FindGameObjectWithTag("PlayerOne").GetComponent<PlayerController>().gameObject.transform.position = new Vector3(-314f, 2f, 0);
+
+        if (GameObject.FindGameObjectWithTag("PlayerTwo"))
+        {
+            GameObject.FindGameObjectWithTag("PlayerTwo").GetComponent<PlayerController>().gameObject.transform.position = new Vector3(-340f, 2f, 0);
+        }
     }
 	
 	// Update is called once per frame
@@ -80,11 +89,18 @@ public class StageCompleteScript : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "PlayerOne")
         {
             LevelManager.stageTransitLoaded = false;
-            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().readInput = true;
-            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().gameObject.transform.position = new Vector3(-450.4f, 245.9f, 0);
+            GameObject.FindGameObjectWithTag("PlayerOne").GetComponent<PlayerController>().readInput = true;
+            GameObject.FindGameObjectWithTag("PlayerOne").GetComponent<PlayerController>().gameObject.transform.position = new Vector3(-450.4f, 245.9f, 0);
+
+            if (GameObject.FindGameObjectWithTag("PlayerTwo"))
+            {
+                GameObject.FindGameObjectWithTag("PlayerTwo").GetComponent<PlayerController>().readInput = true;
+                GameObject.FindGameObjectWithTag("PlayerTwo").GetComponent<PlayerController>().gameObject.transform.position = new Vector3(-450.4f, 213.9f, 0);
+            }
+
             GameObject.Find("Main Camera").GetComponent<Camera>().orthographicSize = 272.499f;
             GameObject.Find("Main Camera").GetComponent<Camera>().transform.position = new Vector3(7, 8, -10);
             SceneManager.LoadScene("LoadingScene");
