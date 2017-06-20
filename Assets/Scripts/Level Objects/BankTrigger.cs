@@ -40,6 +40,16 @@ public class BankTrigger : MonoBehaviour {
             }
             AudioPlayer.aus.clip = null; //Stop playing the idle-town track
 
+            if (LevelManager.playerAmount == 1)
+            {
+                GameObject.FindGameObjectWithTag("PlayerOne").GetComponent<PlayerController>().velocity = new Vector2(0, 0);
+            }
+            else if (LevelManager.playerAmount == 2)
+            {
+                GameObject.FindGameObjectWithTag("PlayerOne").GetComponent<PlayerController>().velocity = new Vector2(0, 0);
+                GameObject.FindGameObjectWithTag("PlayerTwo").GetComponent<PlayerController>().velocity = new Vector2(0, 0);
+            }
+
             //Instantiate(whiteBlast, transform.position, Quaternion.identity); //Play the white blast effect
             GameObject fxinstance =  Instantiate(particlefx, transform.position, Quaternion.identity); //Play the Money blast effect
             Destroy(fxinstance, 1.30f); //Destroy it after 1.3 seconds

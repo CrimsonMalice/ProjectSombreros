@@ -40,10 +40,13 @@ public class ShopMenu : MonoBehaviour
 
     private Vector3 framePos;
 
+    float inputDelayTimer = 0;
+    float inputDelayTimerStart = 0.15f;
+
     // Use this for initialization
     void Start()
     {
-        pc = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        pc = GameObject.FindGameObjectWithTag("PlayerOne").GetComponent<PlayerController>();
         itemInstanceList = new List<GameObject>();
         newPos = new Vector3(-524, -422, 0);
 
@@ -113,6 +116,11 @@ public class ShopMenu : MonoBehaviour
     {
         if (!pc.readInput)
         {
+            if (inputDelayTimer > 0)
+            {
+                inputDelayTimer -= Time.deltaTime;
+            }
+
             if (Input.GetKeyDown(KeyCode.F2))
             {
                 for (int i = 0; i < itemInstanceList.Count; i++)
@@ -154,31 +162,35 @@ public class ShopMenu : MonoBehaviour
                 soldItems.Clear();
             }
 
-            if (Input.GetKeyDown(KeyCode.RightArrow) && highLightedItem < itemList.Count - 1)
+            if (Input.GetAxisRaw("Horizontal1") > 0 && highLightedItem < itemList.Count - 1 && inputDelayTimer <= 0)
             {
                 highLightedItem++;
                 shopFrame.transform.position = ItemSpots[highLightedItem].GetComponent<RectTransform>().position;
+                inputDelayTimer = inputDelayTimerStart;
 
                 UpdateText();
             }
-            else if (Input.GetKeyDown(KeyCode.LeftArrow) && highLightedItem > 0)
+            else if (Input.GetAxisRaw("Horizontal1") < 0 && highLightedItem > 0 && inputDelayTimer <= 0)
             {
                 highLightedItem--;
                 shopFrame.transform.position = ItemSpots[highLightedItem].GetComponent<RectTransform>().position;
+                inputDelayTimer = inputDelayTimerStart;
 
                 UpdateText();
             }
-            else if (Input.GetKeyDown(KeyCode.UpArrow) && highLightedItem > 2)
+            else if (Input.GetAxisRaw("Vertical1") > 0 && highLightedItem > 2 && inputDelayTimer <= 0)
             {
                 highLightedItem -= 3;
                 shopFrame.transform.position = ItemSpots[highLightedItem].GetComponent<RectTransform>().position;
+                inputDelayTimer = inputDelayTimerStart;
 
                 UpdateText();
             }
-            else if (Input.GetKeyDown(KeyCode.DownArrow) && highLightedItem < itemList.Count - 3)
+            else if (Input.GetAxisRaw("Vertical1") < 0 && highLightedItem < itemList.Count - 3 && inputDelayTimer <= 0)
             {
                 highLightedItem += 3;
                 shopFrame.transform.position = ItemSpots[highLightedItem].GetComponent<RectTransform>().position;
+                inputDelayTimer = inputDelayTimerStart;
 
                 UpdateText();
             }
@@ -192,7 +204,7 @@ public class ShopMenu : MonoBehaviour
 
                     //Have a look at how to check for certain power-ups.
                     print(itemList[highLightedItem]);
-                    AddPowerUp.AddPowerUpScript(itemInstanceList[highLightedItem].gameObject.GetComponent<ShopItem>().itemScript, itemList[highLightedItem]);
+                    AddPowerUp.AddPowerUpScript(itemInstanceList[highLightedItem].gameObject.GetComponent<ShopItem>().itemScript, itemList[highLightedItem], pc.gameObject);
 
                     pc.money -= itemInstanceList[highLightedItem].gameObject.GetComponent<ShopItem>().itemCost;
                     itemInstanceList[highLightedItem].gameObject.GetComponent<Image>().sprite = soldSpr;
@@ -204,7 +216,11 @@ public class ShopMenu : MonoBehaviour
                     dialougeText.text = itemInstanceList[highLightedItem].gameObject.GetComponent<ShopItem>().dialougeText;
                     itemDescriptionText.text = itemInstanceList[highLightedItem].gameObject.GetComponent<ShopItem>().itemDescriptionText = soldDescription;
 
-                    
+
+                }
+                else if (pc.money <= itemList[highLightedItem].GetComponent<ShopItem>().itemCost)
+                {
+                    dialougeText.text = "You trying to cheat me you little bastard??? NOT ENOUGH CASH! Comprende?";
                 }
             }
         }

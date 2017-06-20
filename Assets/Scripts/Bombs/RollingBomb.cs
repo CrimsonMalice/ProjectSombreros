@@ -15,7 +15,7 @@ public class RollingBomb : MonoBehaviour {
     {
         rbody = GetComponent<Rigidbody2D>();
 
-        velocity = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().direction; 
+        velocity = GameObject.FindGameObjectWithTag("PlayerOne").GetComponent<PlayerController>().direction; 
 	}
 	
 	// Update is called once per frame

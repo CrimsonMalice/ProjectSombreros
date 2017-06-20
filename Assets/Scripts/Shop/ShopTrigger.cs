@@ -34,7 +34,7 @@ public class ShopTrigger : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "PlayerOne" || other.gameObject.tag == "PlayerTwo")
         {
             PlayerController pc = other.gameObject.GetComponent<PlayerController>();
 
