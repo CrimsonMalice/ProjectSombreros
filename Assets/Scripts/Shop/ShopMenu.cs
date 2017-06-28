@@ -38,6 +38,10 @@ public class ShopMenu : MonoBehaviour
 
     [SerializeField] private GameObject powerUpEffect;
 
+    [SerializeField] private AudioClip scrollSFX;
+    [SerializeField] private AudioClip purchaseDeniedSFX;
+    [SerializeField] private AudioClip purchaseAcceptedSFX;
+
     private Vector3 framePos;
 
     float inputDelayTimer = 0;
@@ -168,6 +172,8 @@ public class ShopMenu : MonoBehaviour
                 shopFrame.transform.position = ItemSpots[highLightedItem].GetComponent<RectTransform>().position;
                 inputDelayTimer = inputDelayTimerStart;
 
+                AudioSource.PlayClipAtPoint(scrollSFX, new Vector3(7, 8, -10), 1.0f);
+
                 UpdateText();
             }
             else if (Input.GetAxisRaw("Horizontal1") < 0 && highLightedItem > 0 && inputDelayTimer <= 0)
@@ -175,6 +181,8 @@ public class ShopMenu : MonoBehaviour
                 highLightedItem--;
                 shopFrame.transform.position = ItemSpots[highLightedItem].GetComponent<RectTransform>().position;
                 inputDelayTimer = inputDelayTimerStart;
+
+                AudioSource.PlayClipAtPoint(scrollSFX, new Vector3(7, 8, -10), 1.0f);
 
                 UpdateText();
             }
@@ -184,6 +192,8 @@ public class ShopMenu : MonoBehaviour
                 shopFrame.transform.position = ItemSpots[highLightedItem].GetComponent<RectTransform>().position;
                 inputDelayTimer = inputDelayTimerStart;
 
+                AudioSource.PlayClipAtPoint(scrollSFX, new Vector3(7, 8, -10), 1.0f);
+
                 UpdateText();
             }
             else if (Input.GetAxisRaw("Vertical1") < 0 && highLightedItem < itemList.Count - 3 && inputDelayTimer <= 0)
@@ -191,6 +201,8 @@ public class ShopMenu : MonoBehaviour
                 highLightedItem += 3;
                 shopFrame.transform.position = ItemSpots[highLightedItem].GetComponent<RectTransform>().position;
                 inputDelayTimer = inputDelayTimerStart;
+
+                AudioSource.PlayClipAtPoint(scrollSFX, new Vector3(7, 8, -10), 1.0f);
 
                 UpdateText();
             }
@@ -204,6 +216,7 @@ public class ShopMenu : MonoBehaviour
 
                     //Have a look at how to check for certain power-ups.
                     print(itemList[highLightedItem]);
+                    AudioSource.PlayClipAtPoint(purchaseAcceptedSFX, new Vector3(7, 8, -10), 1.0f);
                     AddPowerUp.AddPowerUpScript(itemInstanceList[highLightedItem].gameObject.GetComponent<ShopItem>().itemScript, itemList[highLightedItem], pc.gameObject);
 
                     pc.money -= itemInstanceList[highLightedItem].gameObject.GetComponent<ShopItem>().itemCost;
@@ -220,6 +233,7 @@ public class ShopMenu : MonoBehaviour
                 }
                 else if (pc.money <= itemList[highLightedItem].GetComponent<ShopItem>().itemCost)
                 {
+                    AudioSource.PlayClipAtPoint(purchaseDeniedSFX, new Vector3(7, 8, -10), 1.0f);
                     dialougeText.text = "You trying to cheat me you little bastard??? NOT ENOUGH CASH! Comprende?";
                 }
             }

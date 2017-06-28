@@ -105,11 +105,14 @@ public class PlayerController : MonoBehaviour {
             Destroy(GameObject.FindGameObjectsWithTag("MoneyTextTwo")[1]);
         }
 
-        gameOverText = GameObject.Find("GameOverText");
+        gameOverText = GameObject.FindGameObjectWithTag("GameOverText");
 
         if (doOnce == false)
         {
-            gameOverText.SetActive(false);
+            if (lives > 0)
+            {
+                gameOverText.GetComponent<Text>().enabled = false;
+            }
             doOnce = true;
         }
 
@@ -167,7 +170,8 @@ public class PlayerController : MonoBehaviour {
                 canGetHit = false;
                 isActive = false;
 
-                gameOverText.SetActive(true);
+                gameOverText.GetComponent<Text>().enabled = true;
+                
 
                 if (gameOverTimer > 0)
                 {

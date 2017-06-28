@@ -8,6 +8,8 @@ public class UICanvas : MonoBehaviour
 
     public static UICanvas instance = null;
 
+    [SerializeField] private GameObject gameOverText;
+
     // Use this for initialization
     void Awake()
     {
@@ -25,9 +27,15 @@ public class UICanvas : MonoBehaviour
     // Update is called once per frame
     void Update () 
 	{
-        if (SceneManager.GetActiveScene().name == "Menu")
+        if (SceneManager.GetActiveScene().name == "NewMenu")
         {
             Destroy(gameObject);
         }
-	}
+
+        if (SceneManager.GetActiveScene().name == "NewMenu")
+        {
+            if(GameObject.FindGameObjectWithTag("GameOverText"))
+                GameObject.FindGameObjectWithTag("GameOverText").SetActive(false);
+        }
+    }
 }

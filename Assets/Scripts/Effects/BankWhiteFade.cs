@@ -15,6 +15,7 @@ public class BankWhiteFade : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
+        duration = 2.5f;
         bankExplosions.Stop();
         whiteTexture = GameObject.FindGameObjectWithTag("WhiteBlastTexture").GetComponent<Image>();
         whiteTexture.enabled = false;
@@ -51,6 +52,8 @@ public class BankWhiteFade : MonoBehaviour {
                 whiteTexture.CrossFadeAlpha(0.01f, 1.5f, false);
                 bankExplosions.gameObject.SetActive(false);
                 faded = false;
+
+
             }
         }
     }

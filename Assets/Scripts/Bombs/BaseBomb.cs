@@ -14,6 +14,7 @@ public class BaseBomb : MonoBehaviour {
     [SerializeField] float bombTimer; //The active ticking timer for the bomb
     [SerializeField] float bombTimerStart; //At what number the bombTimer should start ticking down from
     [SerializeField] private GameObject explosionObject;
+    [SerializeField] private AudioClip fuseSFX;
 
     public bool HasExploded { get { return this.hasExploded; } }
     public float BombTimerStart { get { return this.bombTimerStart; } }
@@ -21,6 +22,7 @@ public class BaseBomb : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
+        AudioSource.PlayClipAtPoint(fuseSFX, new Vector3(7, 8, -10), 1.0f);
         bombTimer = bombTimerStart; //When the bomb is created, set the timer to the starting value
 	}
 	

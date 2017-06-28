@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameStatsTracker : MonoBehaviour {
 
@@ -9,6 +10,8 @@ public class GameStatsTracker : MonoBehaviour {
     public static int levelsCleared = 0; //Increments after each level completed in StageCompleteScript.cs
     public static int bombsBlown = 0; //Increments after each bomb blown in PlayerController.cs
     public static int finalScore = 0; //Increments after each money pickup in Money.cs and Sheriff.cs
+
+    private bool doOnce;
 
     public static GameStatsTracker instance = null;
 
@@ -34,6 +37,6 @@ public class GameStatsTracker : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-		
+
 	}
 }

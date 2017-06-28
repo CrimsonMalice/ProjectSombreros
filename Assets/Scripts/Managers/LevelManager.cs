@@ -55,6 +55,8 @@ public class LevelManager : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
+        playerAmount = 0;
+
         if (GameObject.FindGameObjectWithTag("PlayerOne"))
         {
             playerAmount++;
@@ -69,6 +71,6 @@ public class LevelManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        
+
     }
 }
