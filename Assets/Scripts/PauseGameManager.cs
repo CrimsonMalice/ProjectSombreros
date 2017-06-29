@@ -18,7 +18,7 @@ public class PauseGameManager : MonoBehaviour
     {
         if (pauseMenuObject != null && !ShopMenu.active)
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetButtonDown("Pause1") || Input.GetButtonDown("Pause2"))
             {
                 toggle = !toggle;
             }

@@ -8,6 +8,8 @@ public class SoundManager : MonoBehaviour {
     public static bool toggleSFX = true;
     public static bool toggleMusic = true;
 
+    GameObject mainCamera;
+
     // Use this for initialization
     void Awake()
     {
@@ -25,13 +27,13 @@ public class SoundManager : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-		
+        mainCamera = GameObject.Find("Main Camera");
 	}
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update()
     {
-		
+
 	}
 
     public void DisableSFX()
@@ -49,12 +51,14 @@ public class SoundManager : MonoBehaviour {
     public void DisableMusic()
     {
         toggleMusic = false;
+        mainCamera.GetComponent<AudioSource>().Pause();
         print(toggleMusic);
     }
 
     public void EnableMusic()
     {
         toggleMusic = true;
+        mainCamera.GetComponent<AudioSource>().UnPause();
         print(toggleMusic);
     }
 }

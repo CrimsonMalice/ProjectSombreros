@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour {
     public Rigidbody2D rbody;
     Animator animator;
 
-    [SerializeField] [Range(1, 2)] private int playerIndex = 1;
+    [SerializeField] [Range(1, 2)] public int playerIndex = 1;
 
     [SerializeField] public Vector2 velocity;
     [SerializeField] public Vector2 direction;
@@ -226,28 +226,28 @@ public class PlayerController : MonoBehaviour {
 
     Vector2 NewVelocity()
     {
-        if (Input.GetAxisRaw("Horizontal" + playerIndex) > 0)
+        if (Input.GetAxisRaw("Horizontal" + playerIndex) > 0 || Input.GetButton("Right" + playerIndex))
         {
             moving = true;
             direction = new Vector2(1, 0);
             return new Vector2(1, 0);
         }
 
-        if (Input.GetAxisRaw("Horizontal" + playerIndex) < 0)
+        if (Input.GetAxisRaw("Horizontal" + playerIndex) < 0 || Input.GetButton("Left" + playerIndex))
         {
             moving = true;
             direction = new Vector2(-1, 0);
             return new Vector2(-1, 0);
         }
 
-        if (Input.GetAxisRaw("Vertical" + playerIndex) > 0)
+        if (Input.GetAxisRaw("Vertical" + playerIndex) > 0 || Input.GetButton("Up" + playerIndex))
         {
             moving = true;
             direction = new Vector2(0, 1);
             return new Vector2(0, 1);
         }
 
-        if (Input.GetAxisRaw("Vertical" + playerIndex) < 0)
+        if (Input.GetAxisRaw("Vertical" + playerIndex) < 0 || Input.GetButton("Down" + playerIndex))
         {
             moving = true;
             direction = new Vector2(0, -1);

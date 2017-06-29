@@ -206,7 +206,7 @@ public class ShopMenu : MonoBehaviour
 
                 UpdateText();
             }
-            else if (Input.GetKeyDown(KeyCode.Space) && !itemInstanceList[highLightedItem].GetComponent<ShopItem>().sold)
+            else if (Input.GetKeyDown(KeyCode.Space) && !itemInstanceList[highLightedItem].GetComponent<ShopItem>().sold || Input.GetButtonDown("Confirm" + pc.playerIndex) && !itemInstanceList[highLightedItem].GetComponent<ShopItem>().sold)
             {
                 if (pc.money >= itemList[highLightedItem].GetComponent<ShopItem>().itemCost)
                 {
