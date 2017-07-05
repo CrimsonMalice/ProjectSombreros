@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ShopMenu : MonoBehaviour
+public class MultiplayerShopMenu : MonoBehaviour
 {
     [SerializeField] private GameObject shopFramePlayerOne;
+    [SerializeField] private GameObject shopFramePlayerTwo;
 
     [SerializeField] private Text moneyText;
     [SerializeField] private Text dialougeText;
@@ -15,12 +16,15 @@ public class ShopMenu : MonoBehaviour
 
     [SerializeField] public GameObject shopCanvas;
     [SerializeField] private PlayerController pc;
+    [SerializeField] private PlayerController pc2;
 
     [SerializeField] private List<GameObject> itemList;
     [SerializeField] private List<GameObject> itemInstanceList;
+
     [SerializeField] private Vector3 newPosPlayerOne;
 
     [SerializeField] private int highLightedItemPlayerOne = 0;
+    [SerializeField] private int highLightedItemPlayerTwo = 0;
 
     [SerializeField] public static bool active = false;
     [SerializeField] private bool iconsActive = false;
@@ -33,8 +37,10 @@ public class ShopMenu : MonoBehaviour
     [SerializeField] private List<int> soldItems;
 
     [SerializeField] private GameObject[] ItemSpotsPlayerOne;
+    [SerializeField] private GameObject[] ItemSpotsPlayerTwo;
 
     [SerializeField] private GameObject itemsObjectPlayerOne;
+    [SerializeField] private GameObject itemsObjectPlayerTwo;
 
     [SerializeField] private GameObject powerUpEffect;
 
@@ -43,14 +49,17 @@ public class ShopMenu : MonoBehaviour
     [SerializeField] private AudioClip purchaseAcceptedSFX;
 
     private Vector3 framePosPlayerOne;
+    private Vector3 framePosPlayerTwo;
 
     float inputDelayTimerPlayerOne = 0;
+    float inputDelayTimerPlayerTwo = 0;
     float inputDelayTimerStart = 0.15f;
 
     // Use this for initialization
     void Start()
     {
         pc = GameObject.FindGameObjectWithTag("PlayerOne").GetComponent<PlayerController>();
+        pc2 = GameObject.FindGameObjectWithTag("PlayerTwo").GetComponent<PlayerController>();
 
         itemInstanceList = new List<GameObject>();
         newPosPlayerOne = new Vector3(-524, -422, 0);
@@ -76,21 +85,27 @@ public class ShopMenu : MonoBehaviour
         }
         while (shopItemCounter < LevelManager.itemShopSlots);
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update()
     {
+        active = true;
+
         if (active && !iconsActive)
         {
             iconsActive = true;
+
+            print(itemList.Count);
 
             if (itemList.Count >= 1)
             {
                 for (int i = 0; i < itemList.Count; i++)
                 {
+                    print("Calling");
                     itemInstanceList.Add(Instantiate(itemList[i], ItemSpotsPlayerOne[i].GetComponent<RectTransform>().position, Quaternion.identity));
                     itemInstanceList[i].GetComponent<Image>().rectTransform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                     itemInstanceList[i].transform.SetParent(itemsObjectPlayerOne.transform);
+                    print("Call Done");
                     //itemInstanceList[i].GetComponent<RectTransform>().anchoredPosition = ItemSpotsPlayerOne[i].GetComponent<RectTransform>().position;
 
                     ////newPosPlayerOne += new Vector3(111, 0, 0);
@@ -98,13 +113,14 @@ public class ShopMenu : MonoBehaviour
             }
             else if (itemList.Count == 0)
             {
-                dialougeText.text = "Yeah yeah, sorry pal, we're sold out for now, you bought EVERYTHING! Come and speak to me later!";
+                print("Calling");
+                dialougeText.text = "Yeah yeah, sorry pals, we're sold out for now, you bought EVERYTHING! Come and speak to me later!";
                 itemNameText.text = "";
                 itemDescriptionText.text = "";
                 itemCostText.text = "";
             }
 
-            if(itemList.Count >= 1)
+            if (itemList.Count >= 1)
                 UpdateText();
         }
 
@@ -138,7 +154,7 @@ public class ShopMenu : MonoBehaviour
                 print(soldItems.Count);
                 pc.readInput = true;
 
-                if(soldItems.Count > 0)
+                if (soldItems.Count > 0)
                     Instantiate(powerUpEffect, pc.transform);
 
                 if (soldItems.Count != 0)
@@ -227,7 +243,7 @@ public class ShopMenu : MonoBehaviour
                     moneyText.text = "Money: " + pc.money.ToString();
                     itemInstanceList[highLightedItemPlayerOne].GetComponent<ShopItem>().sold = true;
 
-                    dialougeText.text = itemInstanceList[highLightedItemPlayerOne].gameObject.GetComponent<ShopItem>().dialougeText;
+                    dialougeText.text = "Score! Another one sold to the SUCKE.. Fine lad!";
                     itemDescriptionText.text = itemInstanceList[highLightedItemPlayerOne].gameObject.GetComponent<ShopItem>().itemDescriptionText = soldDescription;
 
 
@@ -235,7 +251,7 @@ public class ShopMenu : MonoBehaviour
                 else if (pc.money <= itemList[highLightedItemPlayerOne].GetComponent<ShopItem>().itemCost)
                 {
                     AudioSource.PlayClipAtPoint(purchaseDeniedSFX, new Vector3(7, 8, -10), 1.0f);
-                    dialougeText.text = "You trying to cheat me you little bastard??? NOT ENOUGH CASH! Comprende?";
+                    dialougeText.text = "You trying to cheat me you little bastards??? NOT ENOUGH CASH! Comprende?";
                 }
             }
         }
@@ -243,7 +259,7 @@ public class ShopMenu : MonoBehaviour
 
     void UpdateText()
     {
-        dialougeText.text = itemInstanceList[highLightedItemPlayerOne].GetComponent<ShopItem>().dialougeText;
+        dialougeText.text = "Found something cool? Well, you better..";
         itemNameText.text = itemInstanceList[highLightedItemPlayerOne].GetComponent<ShopItem>().itemNameText;
         itemDescriptionText.text = itemInstanceList[highLightedItemPlayerOne].GetComponent<ShopItem>().itemDescriptionText;
         itemCostText.text = "Cost: " + itemInstanceList[highLightedItemPlayerOne].GetComponent<ShopItem>().itemCost.ToString() + " $";

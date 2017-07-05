@@ -10,7 +10,17 @@ public class ShopTrigger : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        shopCanvas = GameObject.Find("ShopCanvas2");
+        print(LevelManager.playerAmount);
+
+        if (GameObject.FindGameObjectWithTag("PlayerOne") && GameObject.FindGameObjectWithTag("PlayerTwo"))
+        {
+            shopCanvas = GameObject.Find("MultiplayerShopCanvas");
+        }
+        else if (GameObject.FindGameObjectWithTag("PlayerOne") && !GameObject.FindGameObjectWithTag("PlayerTwo"))
+        {
+            shopCanvas = GameObject.Find("ShopCanvas2");
+        }
+
         shopCanvas.SetActive(false);
     }
 
@@ -41,7 +51,10 @@ public class ShopTrigger : MonoBehaviour
             pc.readInput = false;
             pc.rbody.velocity = Vector2.zero;
             shopCanvas.SetActive(true);
+
+            print(ShopMenu.active);
             ShopMenu.active = true;
+            print(ShopMenu.active);
         }
     }
 }

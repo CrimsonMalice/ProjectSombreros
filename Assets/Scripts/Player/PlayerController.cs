@@ -265,6 +265,7 @@ public class PlayerController : MonoBehaviour {
     {
         if (Input.GetButtonDown("Bomb" + playerIndex) && canAttack)
         {
+            print("Pressed");
             Instantiate(selectedBomb, transform.position, Quaternion.identity);
             canAttack = false;
             bombDelayTimer = bombDelayTimerStart;
