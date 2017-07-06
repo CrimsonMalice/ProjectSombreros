@@ -7,7 +7,7 @@ public class ShopItem : MonoBehaviour {
 
     [SerializeField] public string dialougeText;
     [SerializeField] public string itemNameText;
-    [SerializeField] public string itemDescriptionText;
+    [SerializeField] public string itemDescription;
     [SerializeField] public string itemScript;
 
     [SerializeField] public int itemCost;

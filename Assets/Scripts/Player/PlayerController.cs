@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] private GameObject gameOverText;
     private Text scoreText;
     private Text livesText;
-    private Text moneyText;
+    private Text moneyTextPlayerOne;
 
     void Awake()
     {
@@ -120,12 +120,12 @@ public class PlayerController : MonoBehaviour {
 
         if (playerIndex == 1)
         {
-            moneyText = GameObject.FindGameObjectWithTag("MoneyTextOne").GetComponent<Text>();
+            moneyTextPlayerOne = GameObject.FindGameObjectWithTag("MoneyTextOne").GetComponent<Text>();
             livesText = GameObject.FindGameObjectWithTag("LivesTextOne").GetComponent<Text>();
         }
         else if (playerIndex == 2)
         {
-            moneyText = GameObject.FindGameObjectWithTag("MoneyTextTwo").GetComponent<Text>();
+            moneyTextPlayerOne = GameObject.FindGameObjectWithTag("MoneyTextOne").GetComponent<Text>();
             livesText = GameObject.FindGameObjectWithTag("LivesTextTwo").GetComponent<Text>();
         }
 
@@ -190,7 +190,7 @@ public class PlayerController : MonoBehaviour {
         Timers();
 
         scoreText.text = "Score: " + points + " / " + LevelManager.requiredScore;
-        moneyText.text = "Money: " + money;
+        moneyTextPlayerOne.text = "Money: " + money;
         livesText.text = "x" + lives;
     }
 

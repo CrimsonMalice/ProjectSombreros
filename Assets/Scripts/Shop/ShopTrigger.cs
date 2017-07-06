@@ -46,15 +46,37 @@ public class ShopTrigger : MonoBehaviour
     {
         if (other.gameObject.tag == "PlayerOne" || other.gameObject.tag == "PlayerTwo")
         {
-            PlayerController pc = other.gameObject.GetComponent<PlayerController>();
+            PlayerController pc;
+            PlayerController pc2;
+            if (GameObject.FindGameObjectWithTag("PlayerOne") && GameObject.FindGameObjectWithTag("PlayerTwo"))
+            {
+                pc = GameObject.FindGameObjectWithTag("PlayerOne").GetComponent<PlayerController>();
+                pc2 = GameObject.FindGameObjectWithTag("PlayerTwo").GetComponent<PlayerController>();
 
-            pc.readInput = false;
-            pc.rbody.velocity = Vector2.zero;
-            shopCanvas.SetActive(true);
+                pc.readInput = false;
+                pc.rbody.velocity = Vector2.zero;
 
-            print(ShopMenu.active);
-            ShopMenu.active = true;
-            print(ShopMenu.active);
+                pc2.readInput = false;
+                pc2.rbody.velocity = Vector2.zero;
+                shopCanvas.SetActive(true);
+
+                print(ShopMenu.active);
+                ShopMenu.active = true;
+                print(ShopMenu.active);
+            }
+            else if (GameObject.FindGameObjectWithTag("PlayerOne") && !GameObject.FindGameObjectWithTag("PlayerTwo"))
+            {
+                pc = GameObject.FindGameObjectWithTag("PlayerOne").GetComponent<PlayerController>();
+
+                pc.readInput = false;
+                pc.rbody.velocity = Vector2.zero;
+
+                shopCanvas.SetActive(true);
+
+                print(ShopMenu.active);
+                ShopMenu.active = true;
+                print(ShopMenu.active);
+            }
         }
     }
 }

@@ -8,7 +8,7 @@ public class StageCompleteScript : MonoBehaviour {
 
     [SerializeField] private AudioClip stageCompleteSong;
     [SerializeField] private Text killsText;
-    [SerializeField] private Text MoneyText;
+    [SerializeField] private Text moneyTextPlayerOne;
     [SerializeField] private Text bombBonusText;
 
     [SerializeField] private float timer; //Loads next level after 12 seconds
@@ -36,11 +36,11 @@ public class StageCompleteScript : MonoBehaviour {
 
         coolIndex = Random.Range(0, coolArray.Length);
         killsText.text = "Kills: " + LevelManager.enemiesKilled;
-        MoneyText.text = "Money Picked Up: " + LevelManager.moneyPickedUp;
+        moneyTextPlayerOne.text = "Money Picked Up: " + LevelManager.moneyPickedUp;
         bombBonusText.text = coolArray[coolIndex];
         LevelManager.stageTransitLoaded = true;
         killsText.enabled = false;
-        MoneyText.enabled = false;
+        moneyTextPlayerOne.enabled = false;
         bombBonusText.enabled = false;
 
         LevelManager.enemiesKilled = 0;
@@ -68,9 +68,9 @@ public class StageCompleteScript : MonoBehaviour {
             }
         }
 
-        if (timer >= showTextTwo && MoneyText.enabled == false)
+        if (timer >= showTextTwo && moneyTextPlayerOne.enabled == false)
         {
-            MoneyText.enabled = true;
+            moneyTextPlayerOne.enabled = true;
             if (SoundManager.toggleSFX)
             {
                 AudioSource.PlayClipAtPoint(blastSFX, new Vector3(0, 0, -10), 2.0f);

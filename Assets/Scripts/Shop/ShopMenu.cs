@@ -7,11 +7,11 @@ public class ShopMenu : MonoBehaviour
 {
     [SerializeField] private GameObject shopFramePlayerOne;
 
-    [SerializeField] private Text moneyText;
+    [SerializeField] private Text moneyTextPlayerOne;
     [SerializeField] private Text dialougeText;
-    [SerializeField] private Text itemNameText;
-    [SerializeField] private Text itemDescriptionText;
-    [SerializeField] private Text itemCostText;
+    [SerializeField] private Text itemNameTextPlayerOne;
+    [SerializeField] private Text itemDescriptionTextPlayerOne;
+    [SerializeField] private Text itemCostTextPlayerOne;
 
     [SerializeField] public GameObject shopCanvas;
     [SerializeField] private PlayerController pc;
@@ -99,9 +99,9 @@ public class ShopMenu : MonoBehaviour
             else if (itemList.Count == 0)
             {
                 dialougeText.text = "Yeah yeah, sorry pal, we're sold out for now, you bought EVERYTHING! Come and speak to me later!";
-                itemNameText.text = "";
-                itemDescriptionText.text = "";
-                itemCostText.text = "";
+                itemNameTextPlayerOne.text = "";
+                itemDescriptionTextPlayerOne.text = "";
+                itemCostTextPlayerOne.text = "";
             }
 
             if(itemList.Count >= 1)
@@ -223,12 +223,12 @@ public class ShopMenu : MonoBehaviour
                     pc.money -= itemInstanceList[highLightedItemPlayerOne].gameObject.GetComponent<ShopItem>().itemCost;
                     itemInstanceList[highLightedItemPlayerOne].gameObject.GetComponent<Image>().sprite = soldSpr;
                     itemInstanceList[highLightedItemPlayerOne].gameObject.GetComponent<ShopItem>().dialougeText = soldDialouge;
-                    itemInstanceList[highLightedItemPlayerOne].gameObject.GetComponent<ShopItem>().itemDescriptionText = soldDescription;
-                    moneyText.text = "Money: " + pc.money.ToString();
+                    itemInstanceList[highLightedItemPlayerOne].gameObject.GetComponent<ShopItem>().itemDescription = soldDescription;
+                    moneyTextPlayerOne.text = "Money: " + pc.money.ToString();
                     itemInstanceList[highLightedItemPlayerOne].GetComponent<ShopItem>().sold = true;
 
                     dialougeText.text = itemInstanceList[highLightedItemPlayerOne].gameObject.GetComponent<ShopItem>().dialougeText;
-                    itemDescriptionText.text = itemInstanceList[highLightedItemPlayerOne].gameObject.GetComponent<ShopItem>().itemDescriptionText = soldDescription;
+                    itemDescriptionTextPlayerOne.text = itemInstanceList[highLightedItemPlayerOne].gameObject.GetComponent<ShopItem>().itemDescription = soldDescription;
 
 
                 }
@@ -244,10 +244,10 @@ public class ShopMenu : MonoBehaviour
     void UpdateText()
     {
         dialougeText.text = itemInstanceList[highLightedItemPlayerOne].GetComponent<ShopItem>().dialougeText;
-        itemNameText.text = itemInstanceList[highLightedItemPlayerOne].GetComponent<ShopItem>().itemNameText;
-        itemDescriptionText.text = itemInstanceList[highLightedItemPlayerOne].GetComponent<ShopItem>().itemDescriptionText;
-        itemCostText.text = "Cost: " + itemInstanceList[highLightedItemPlayerOne].GetComponent<ShopItem>().itemCost.ToString() + " $";
-        moneyText.text = "Money: " + pc.money.ToString();
+        itemNameTextPlayerOne.text = itemInstanceList[highLightedItemPlayerOne].GetComponent<ShopItem>().itemNameText;
+        itemDescriptionTextPlayerOne.text = itemInstanceList[highLightedItemPlayerOne].GetComponent<ShopItem>().itemDescription;
+        itemCostTextPlayerOne.text = "Cost: " + itemInstanceList[highLightedItemPlayerOne].GetComponent<ShopItem>().itemCost.ToString() + " $";
+        moneyTextPlayerOne.text = "Money: " + pc.money.ToString();
 
     }
 

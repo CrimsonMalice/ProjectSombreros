@@ -13,7 +13,8 @@ public class PowerUpEffect : MonoBehaviour {
         GameObject instance = Instantiate(floatText, transform.position, Quaternion.identity);
 
         instance.GetComponent<MoneyFloatText>().moneyAmount = "POWER UP!";
-        instance.transform.SetParent(GameObject.Find("Player").transform);
+
+        //instance.transform.SetParent(GameObject.Find("PlayerOne").transform);
     }
 	
 	// Update is called once per frame
