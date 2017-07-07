@@ -29,6 +29,10 @@ public class LevelManager : MonoBehaviour {
     public static int moneyPickedUp;
     public static int bombBonus;
 
+    public static int enemiesKilled2;
+    public static int moneyPickedUp2;
+    public static int bombBonus2;
+
     //[SerializeField] private LevelSpawner lvlSpawner;
 
     int callAmount = 0;
@@ -57,6 +61,16 @@ public class LevelManager : MonoBehaviour {
     {
         playerAmount = 0;
 
+        //if (SceneManager.GetActiveScene().name == "NewMenu")
+        //{
+        //    playerMoney = 0;
+        //    playerTwoMoney = 0;
+        //    playerLives = 3;
+        //    playerTwoLives = 3;
+        //    currentPlayerScore = 0;
+        //    requiredScore = 10000;
+        //}
+
         if (GameObject.FindGameObjectWithTag("PlayerOne"))
         {
             playerAmount++;
@@ -67,10 +81,13 @@ public class LevelManager : MonoBehaviour {
             playerAmount++;
         }
     }
-	
-	// Update is called once per frame
-	void Update ()
-    {
 
+    // Update is called once per frame
+    void Update()
+    {
+        if (SceneManager.GetActiveScene().name == "NewMenu")
+        {
+            Destroy(gameObject);
+        }
     }
 }

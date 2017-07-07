@@ -41,8 +41,8 @@ public class MultiplayerShopMenu : MonoBehaviour
     [SerializeField] private string soldDescription;
     [SerializeField] private string soldDialouge;
 
-    [SerializeField] private List<int> soldItems;
-    [SerializeField] private List<int> soldItems2;
+    [SerializeField] private List<GameObject> soldItems;
+    [SerializeField] private List<GameObject> soldItems2;
 
     [SerializeField] private GameObject[] ItemSpotsPlayerOne;
     [SerializeField] private GameObject[] ItemSpotsPlayerTwo;
@@ -90,6 +90,7 @@ public class MultiplayerShopMenu : MonoBehaviour
         do
         {
             int randomIndex = Random.Range(0, Resources.LoadAll("ShopItems").Length - shopItemCounter);
+
             itemList.Add(currentItemList[randomIndex]);
             itemList2.Add(currentItemList[randomIndex]);
             currentItemList.RemoveAt(randomIndex);
@@ -103,30 +104,40 @@ public class MultiplayerShopMenu : MonoBehaviour
     {
         active = true;
 
+        //Re-instasiate the arrays every time you load the chat.
+
         if (active && !iconsActive)
         {
             iconsActive = true;
 
-            if (itemList.Count >= 1)
+            if (itemList.Count >= 1 || itemList2.Count >= 1)
             {
-                for (int i = 0; i < itemList.Count; i++)
+                if (itemList.Count >= 1)
                 {
-                    itemInstanceList.Add(Instantiate(itemList[i], ItemSpotsPlayerOne[i].GetComponent<RectTransform>().position, Quaternion.identity));
-                    itemInstanceList[i].GetComponent<Image>().rectTransform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-                    itemInstanceList[i].transform.SetParent(itemsObjectPlayerOne.transform);
-                    //itemInstanceList[i].GetComponent<RectTransform>().anchoredPosition = ItemSpotsPlayerOne[i].GetComponent<RectTransform>().position;
+                    for (int i = 0; i < itemList.Count; i++)
+                    {
+                        itemInstanceList.Add(Instantiate(itemList[i], ItemSpotsPlayerOne[i].GetComponent<RectTransform>().position, Quaternion.identity));
+                        itemInstanceList[i].GetComponent<Image>().rectTransform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+                        itemInstanceList[i].transform.SetParent(itemsObjectPlayerOne.transform);
+                        //itemInstanceList[i].GetComponent<RectTransform>().anchoredPosition = ItemSpotsPlayerOne[i].GetComponent<RectTransform>().position;
 
-                    ////newPosPlayerOne += new Vector3(111, 0, 0);
+                        ////newPosPlayerOne += new Vector3(111, 0, 0);
+                    }
+                    UpdateText(dialougeText, itemNameTextPlayerOne, itemCostTextPlayerOne, itemDescriptionTextPlayerOne, moneyTextPlayerOne, itemInstanceList, highLightedItemPlayerOne);
                 }
 
-                for (int i = 0; i < itemList2.Count; i++)
+                if (itemList2.Count >= 1)
                 {
-                    itemInstanceList2.Add(Instantiate(itemList2[i], ItemSpotsPlayerTwo[i].GetComponent<RectTransform>().position, Quaternion.identity));
-                    itemInstanceList2[i].GetComponent<Image>().rectTransform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-                    itemInstanceList2[i].transform.SetParent(itemsObjectPlayerTwo.transform);
-                    //itemInstanceList[i].GetComponent<RectTransform>().anchoredPosition = ItemSpotsPlayerOne[i].GetComponent<RectTransform>().position;
+                    for (int i = 0; i < itemList2.Count; i++)
+                    {
+                        itemInstanceList2.Add(Instantiate(itemList2[i], ItemSpotsPlayerTwo[i].GetComponent<RectTransform>().position, Quaternion.identity));
+                        itemInstanceList2[i].GetComponent<Image>().rectTransform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+                        itemInstanceList2[i].transform.SetParent(itemsObjectPlayerTwo.transform);
+                        //itemInstanceList[i].GetComponent<RectTransform>().anchoredPosition = ItemSpotsPlayerOne[i].GetComponent<RectTransform>().position;
 
-                    ////newPosPlayerOne += new Vector3(111, 0, 0);
+                        ////newPosPlayerOne += new Vector3(111, 0, 0);
+                    }
+                    UpdateText(dialougeText, itemNameTextPlayerTwo, itemCostTextPlayerTwo, itemDescriptionTextPlayerTwo, moneyTextPlayerTwo, itemInstanceList2, highLightedItemPlayerTwo);
                 }
             }
             else if (itemList.Count == 0 && itemList2.Count == 0)
@@ -140,12 +151,6 @@ public class MultiplayerShopMenu : MonoBehaviour
                 itemNameTextPlayerTwo.text = "";
                 itemDescriptionTextPlayerTwo.text = "";
                 itemCostTextPlayerTwo.text = "";
-            }
-
-            if (itemList.Count >= 1 || itemList2.Count >= 1)
-            {
-                UpdateText(dialougeText, itemNameTextPlayerOne, itemCostTextPlayerOne, itemDescriptionTextPlayerOne, moneyTextPlayerOne, itemInstanceList, highLightedItemPlayerOne);
-                UpdateText(dialougeText, itemNameTextPlayerTwo, itemCostTextPlayerTwo, itemDescriptionTextPlayerTwo, moneyTextPlayerTwo, itemInstanceList2, highLightedItemPlayerTwo);
             }
         }
 
@@ -186,24 +191,43 @@ public class MultiplayerShopMenu : MonoBehaviour
                 pc.readInput = true;
                 pc2.readInput = true;
 
-                if (soldItems.Count > 0 || soldItems2.Count > 0)
+                if (soldItems.Count > 0)
                 {
                     Instantiate(powerUpEffect, pc.transform);
+                }
+
+                if (soldItems2.Count > 0)
+                {
                     Instantiate(powerUpEffect, pc2.transform);
                 }
 
-                if (soldItems.Count != 0 || soldItems2.Count != 0)
-                {
-                    for (int i = 0; i < soldItems.Count; i++)
-                    {
-                        itemList.Remove(itemList[soldItems[i]]);
-                    }
+                //if (soldItems.Count != 0)
+                //{
+                //    for (int i = 0; i < soldItems.Count; i++)
+                //    {
+                //        for (int j = 0; j < itemList.Count; j++)
+                //        {
+                //            if (soldItems[i].name == itemList[j].name)
+                //            {
+                //                itemList.RemoveAt(j);
+                //            }
+                //        }
+                //    }
+                //}
 
-                    for (int i = 0; i < soldItems2.Count; i++)
-                    {
-                        itemList2.Remove(itemList2[soldItems2[i]]);
-                    }
-                }
+                //if (soldItems2.Count != 0)
+                //{
+                //    for (int i = 0; i < soldItems2.Count; i++)
+                //    {
+                //        for (int j = 0; j < itemList2.Count; j++)
+                //        {
+                //            if (soldItems2[i].name == itemList2[j].name)
+                //            {
+                //                itemList2.RemoveAt(j);
+                //            }
+                //        }
+                //    }
+                //}
 
                 foreach (GameObject go in GameObject.FindGameObjectsWithTag("ShopItemUI"))
                 {
@@ -228,7 +252,8 @@ public class MultiplayerShopMenu : MonoBehaviour
                 soldItems2.Clear();
             }
 
-            if (Input.GetAxisRaw("Horizontal1") > 0 && highLightedItemPlayerOne < itemList.Count - 1 && inputDelayTimerPlayerOne <= 0)
+            if (Input.GetAxisRaw("Horizontal1") > 0 && highLightedItemPlayerOne < itemInstanceList.Count - 1 && inputDelayTimerPlayerOne <= 0 ||
+                Input.GetButtonDown("Right1") && highLightedItemPlayerOne < itemInstanceList.Count - 1 && inputDelayTimerPlayerOne <= 0)
             {
                 highLightedItemPlayerOne++;
                 shopFramePlayerOne.transform.position = ItemSpotsPlayerOne[highLightedItemPlayerOne].GetComponent<RectTransform>().position;
@@ -238,7 +263,8 @@ public class MultiplayerShopMenu : MonoBehaviour
 
                 UpdateText(dialougeText, itemNameTextPlayerOne, itemCostTextPlayerOne, itemDescriptionTextPlayerOne, moneyTextPlayerOne, itemInstanceList, highLightedItemPlayerOne);
             }
-            else if (Input.GetAxisRaw("Horizontal1") < 0 && highLightedItemPlayerOne > 0 && inputDelayTimerPlayerOne <= 0)
+            else if (Input.GetAxisRaw("Horizontal1") < 0 && highLightedItemPlayerOne > 0 && inputDelayTimerPlayerOne <= 0 ||
+                Input.GetButtonDown("Left1") && highLightedItemPlayerOne > 0 && inputDelayTimerPlayerOne <= 0)
             {
                 highLightedItemPlayerOne--;
                 shopFramePlayerOne.transform.position = ItemSpotsPlayerOne[highLightedItemPlayerOne].GetComponent<RectTransform>().position;
@@ -248,7 +274,8 @@ public class MultiplayerShopMenu : MonoBehaviour
 
                 UpdateText(dialougeText, itemNameTextPlayerOne, itemCostTextPlayerOne, itemDescriptionTextPlayerOne, moneyTextPlayerOne, itemInstanceList, highLightedItemPlayerOne);
             }
-            else if (Input.GetAxisRaw("Vertical1") > 0 && highLightedItemPlayerOne > 2 && inputDelayTimerPlayerOne <= 0)
+            else if (Input.GetAxisRaw("Vertical1") > 0 && highLightedItemPlayerOne > 2 && inputDelayTimerPlayerOne <= 0 ||
+                Input.GetButtonDown("Up1") && highLightedItemPlayerOne > 2 && inputDelayTimerPlayerOne <= 0)
             {
                 highLightedItemPlayerOne -= 3;
                 shopFramePlayerOne.transform.position = ItemSpotsPlayerOne[highLightedItemPlayerOne].GetComponent<RectTransform>().position;
@@ -258,7 +285,8 @@ public class MultiplayerShopMenu : MonoBehaviour
 
                 UpdateText(dialougeText, itemNameTextPlayerOne, itemCostTextPlayerOne, itemDescriptionTextPlayerOne, moneyTextPlayerOne, itemInstanceList, highLightedItemPlayerOne);
             }
-            else if (Input.GetAxisRaw("Vertical1") < 0 && highLightedItemPlayerOne < itemList.Count - 3 && inputDelayTimerPlayerOne <= 0)
+            else if (Input.GetAxisRaw("Vertical1") < 0 && highLightedItemPlayerOne < itemInstanceList.Count - 3 && inputDelayTimerPlayerOne <= 0 ||
+                Input.GetButtonDown("Down1") && highLightedItemPlayerOne < itemInstanceList.Count - 3 && inputDelayTimerPlayerOne <= 0)
             {
                 highLightedItemPlayerOne += 3;
                 shopFramePlayerOne.transform.position = ItemSpotsPlayerOne[highLightedItemPlayerOne].GetComponent<RectTransform>().position;
@@ -268,35 +296,50 @@ public class MultiplayerShopMenu : MonoBehaviour
 
                 UpdateText(dialougeText, itemNameTextPlayerOne, itemCostTextPlayerOne, itemDescriptionTextPlayerOne, moneyTextPlayerOne, itemInstanceList, highLightedItemPlayerOne);
             }
-            else if (Input.GetKeyDown(KeyCode.Space) && !itemInstanceList[highLightedItemPlayerOne].GetComponent<ShopItem>().sold || Input.GetButtonDown("Confirm" + pc.playerIndex) && !itemInstanceList[highLightedItemPlayerOne].GetComponent<ShopItem>().sold)
+
+            if (itemInstanceList.Count != 0)
             {
-                if (pc.money >= itemList[highLightedItemPlayerOne].GetComponent<ShopItem>().itemCost)
+                if (Input.GetKeyDown(KeyCode.LeftControl) && !itemInstanceList[highLightedItemPlayerOne].GetComponent<ShopItem>().sold || Input.GetButtonDown("Confirm" + pc.playerIndex) && !itemInstanceList[highLightedItemPlayerOne].GetComponent<ShopItem>().sold)
                 {
-                    soldItems.Add(highLightedItemPlayerOne);
+                    inputDelayTimerPlayerOne = inputDelayTimerStart;
+                    if (pc.money >= itemInstanceList[highLightedItemPlayerOne].GetComponent<ShopItem>().itemCost)
+                    {
+                        soldItems.Add(itemInstanceList[highLightedItemPlayerOne]);
 
-                    //AddScript(itemInstanceList[highLightedItemPlayerOne].gameObject.GetComponent<ShopItem>().itemScript);
+                        //AddScript(itemInstanceList[highLightedItemPlayerOne].gameObject.GetComponent<ShopItem>().itemScript);
 
-                    //Have a look at how to check for certain power-ups.
-                    print(itemList[highLightedItemPlayerOne]);
-                    AudioSource.PlayClipAtPoint(purchaseAcceptedSFX, new Vector3(7, 8, -10), 1.0f);
-                    AddPowerUp.AddPowerUpScript(itemInstanceList[highLightedItemPlayerOne].gameObject.GetComponent<ShopItem>().itemScript, itemList[highLightedItemPlayerOne], pc.gameObject);
+                        //Have a look at how to check for certain power-ups.
+                        print(itemInstanceList[highLightedItemPlayerOne]);
+                        AudioSource.PlayClipAtPoint(purchaseAcceptedSFX, new Vector3(7, 8, -10), 1.0f);
+                        AddPowerUp.AddPowerUpScript(itemInstanceList[highLightedItemPlayerOne].gameObject.GetComponent<ShopItem>().itemScript, itemInstanceList[highLightedItemPlayerOne], pc.gameObject);
 
-                    pc.money -= itemInstanceList[highLightedItemPlayerOne].gameObject.GetComponent<ShopItem>().itemCost;
-                    itemInstanceList[highLightedItemPlayerOne].gameObject.GetComponent<Image>().sprite = soldSpr;
-                    itemInstanceList[highLightedItemPlayerOne].gameObject.GetComponent<ShopItem>().dialougeText = soldDialouge;
-                    itemInstanceList[highLightedItemPlayerOne].gameObject.GetComponent<ShopItem>().itemDescription = soldDescription;
-                    moneyTextPlayerOne.text = "Money: " + pc.money.ToString();
-                    itemInstanceList[highLightedItemPlayerOne].GetComponent<ShopItem>().sold = true;
+                        for (int i = 0; i < itemList.Count; i++)
+                        {
+                            if (itemList[i].GetComponent<ShopItem>().itemNameText == soldItems[0].GetComponent<ShopItem>().itemNameText)
+                            {
+                                itemList.RemoveAt(i);
+                                soldItems.RemoveAt(0);
 
-                    dialougeText.text = "Score! Another one sold to the SUCKE.. Fine lad!";
-                    itemDescriptionTextPlayerOne.text = itemInstanceList[highLightedItemPlayerOne].gameObject.GetComponent<ShopItem>().itemDescription = soldDescription;
+                                break;
+                            }
+                        }
 
+                        pc.money -= itemInstanceList[highLightedItemPlayerOne].gameObject.GetComponent<ShopItem>().itemCost;
+                        itemInstanceList[highLightedItemPlayerOne].gameObject.GetComponent<Image>().sprite = soldSpr;
+                        itemInstanceList[highLightedItemPlayerOne].gameObject.GetComponent<ShopItem>().dialougeText = soldDialouge;
+                        itemInstanceList[highLightedItemPlayerOne].gameObject.GetComponent<ShopItem>().itemDescription = soldDescription;
+                        moneyTextPlayerOne.text = "Money: " + pc.money.ToString();
+                        itemInstanceList[highLightedItemPlayerOne].GetComponent<ShopItem>().sold = true;
 
-                }
-                else if (pc.money <= itemList[highLightedItemPlayerOne].GetComponent<ShopItem>().itemCost)
-                {
-                    AudioSource.PlayClipAtPoint(purchaseDeniedSFX, new Vector3(7, 8, -10), 1.0f);
-                    dialougeText.text = "You trying to cheat me you little bastards??? NOT ENOUGH CASH! Comprende?";
+                        dialougeText.text = "Score! Another one sold to the SUCKE.. Fine lad!";
+                        itemDescriptionTextPlayerOne.text = itemInstanceList[highLightedItemPlayerOne].gameObject.GetComponent<ShopItem>().itemDescription = soldDescription;
+                    }
+                    else if (pc.money <= itemList[highLightedItemPlayerOne].GetComponent<ShopItem>().itemCost)
+                    {
+                        AudioSource.PlayClipAtPoint(purchaseDeniedSFX, new Vector3(7, 8, -10), 1.0f);
+                        dialougeText.text = "You trying to cheat me you little bastards??? NOT ENOUGH CASH! Comprende?";
+                    }
+
                 }
             }
         }
@@ -318,34 +361,50 @@ public class MultiplayerShopMenu : MonoBehaviour
             //        print(itemInstanceList[i].gameObject.name);
             //    }
             //}
-            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("Bomb" + pc2.playerIndex))
+            if (/*Input.GetKeyDown(KeyCode.Escape) || */Input.GetButtonDown("Bomb" + pc2.playerIndex))
             {
                 //DO THIS FOR BOTH PLAYERS!!!!!
 
                 pc.readInput = true;
                 pc2.readInput = true;
 
-                if (soldItems.Count > 0 || soldItems2.Count > 0)
+                if (soldItems.Count > 0)
                 {
                     Instantiate(powerUpEffect, pc.transform);
+                }
+
+                if (soldItems2.Count > 0)
+                {
                     Instantiate(powerUpEffect, pc2.transform);
                 }
 
-                if (soldItems.Count != 0)
-                {
-                    for (int i = 0; i < soldItems.Count; i++)
-                    {
-                        itemList.Remove(itemList[soldItems[i]]);
-                    }
-                }
+                //if (soldItems.Count != 0)
+                //{
+                //    for (int i = 0; i < soldItems.Count; i++)
+                //    {
+                //        for (int j = 0; j < itemList.Count; j++)
+                //        {
+                //            if (soldItems[i].name == itemList[j].name)
+                //            {
+                //                itemList.RemoveAt(j);
+                //            }
+                //        }
+                //    }
+                //}
 
-                if (soldItems2.Count != 0)
-                {
-                    for (int i = 0; i < soldItems2.Count; i++)
-                    {
-                        itemList2.Remove(itemList2[soldItems2[i]]);
-                    }
-                }
+                //if (soldItems2.Count != 0)
+                //{
+                //    for (int i = 0; i < itemList2.Count; i++)
+                //    {
+                //        for (int j = 0; j < soldItems2.Count; j++)
+                //        {
+                //            if (soldItems2[j].name == itemList2[i].name)
+                //            {
+                //                itemList2.RemoveAt(i);
+                //            }
+                //        }
+                //    }
+                //}
 
                 foreach (GameObject go in GameObject.FindGameObjectsWithTag("ShopItemUI"))
                 {
@@ -370,7 +429,8 @@ public class MultiplayerShopMenu : MonoBehaviour
                 soldItems2.Clear();
             }
 
-            if (Input.GetAxisRaw("Horizontal2") > 0 && highLightedItemPlayerTwo < itemList2.Count - 1 && inputDelayTimerPlayerTwo <= 0)
+            if (Input.GetAxisRaw("Horizontal2") > 0 && highLightedItemPlayerTwo < itemInstanceList2.Count - 1 && inputDelayTimerPlayerTwo <= 0 ||
+                Input.GetButtonDown("Right2") && highLightedItemPlayerTwo < itemInstanceList2.Count - 1 && inputDelayTimerPlayerTwo <= 0)
             {
                 highLightedItemPlayerTwo++;
                 shopFramePlayerTwo.transform.position = ItemSpotsPlayerTwo[highLightedItemPlayerTwo].GetComponent<RectTransform>().position;
@@ -380,7 +440,8 @@ public class MultiplayerShopMenu : MonoBehaviour
 
                 UpdateText(dialougeText, itemNameTextPlayerTwo, itemCostTextPlayerTwo, itemDescriptionTextPlayerTwo, moneyTextPlayerTwo, itemInstanceList2, highLightedItemPlayerTwo);
             }
-            else if (Input.GetAxisRaw("Horizontal2") < 0 && highLightedItemPlayerTwo > 0 && inputDelayTimerPlayerTwo <= 0)
+            else if (Input.GetAxisRaw("Horizontal2") < 0 && highLightedItemPlayerTwo > 0 && inputDelayTimerPlayerTwo <= 0 ||
+                Input.GetButtonDown("Left2") && highLightedItemPlayerTwo > 0 && inputDelayTimerPlayerTwo <= 0)
             {
                 highLightedItemPlayerTwo--;
                 shopFramePlayerTwo.transform.position = ItemSpotsPlayerTwo[highLightedItemPlayerTwo].GetComponent<RectTransform>().position;
@@ -390,7 +451,8 @@ public class MultiplayerShopMenu : MonoBehaviour
 
                 UpdateText(dialougeText, itemNameTextPlayerTwo, itemCostTextPlayerTwo, itemDescriptionTextPlayerTwo, moneyTextPlayerTwo, itemInstanceList2, highLightedItemPlayerTwo);
             }
-            else if (Input.GetAxisRaw("Vertical2") > 0 && highLightedItemPlayerTwo > 2 && inputDelayTimerPlayerTwo <= 0)
+            else if (Input.GetAxisRaw("Vertical2") > 0 && highLightedItemPlayerTwo > 2 && inputDelayTimerPlayerTwo <= 0 ||
+                Input.GetButtonDown("Up2") && highLightedItemPlayerTwo > 2 && inputDelayTimerPlayerTwo <= 0)
             {
                 highLightedItemPlayerTwo -= 3;
                 shopFramePlayerTwo.transform.position = ItemSpotsPlayerTwo[highLightedItemPlayerTwo].GetComponent<RectTransform>().position;
@@ -400,7 +462,8 @@ public class MultiplayerShopMenu : MonoBehaviour
 
                 UpdateText(dialougeText, itemNameTextPlayerTwo, itemCostTextPlayerTwo, itemDescriptionTextPlayerTwo, moneyTextPlayerTwo, itemInstanceList2, highLightedItemPlayerTwo);
             }
-            else if (Input.GetAxisRaw("Vertical2") < 0 && highLightedItemPlayerTwo < itemList2.Count - 3 && inputDelayTimerPlayerTwo <= 0)
+            else if (Input.GetAxisRaw("Vertical2") < 0 && highLightedItemPlayerTwo < itemInstanceList2.Count - 3 && inputDelayTimerPlayerTwo <= 0 ||
+                Input.GetButtonDown("Down2") && highLightedItemPlayerTwo < itemInstanceList2.Count - 3 && inputDelayTimerPlayerTwo <= 0)
             {
                 highLightedItemPlayerTwo += 3;
                 shopFramePlayerTwo.transform.position = ItemSpotsPlayerTwo[highLightedItemPlayerTwo].GetComponent<RectTransform>().position;
@@ -410,35 +473,54 @@ public class MultiplayerShopMenu : MonoBehaviour
 
                 UpdateText(dialougeText, itemNameTextPlayerTwo, itemCostTextPlayerTwo, itemDescriptionTextPlayerTwo, moneyTextPlayerTwo, itemInstanceList2, highLightedItemPlayerTwo);
             }
-            else if (Input.GetKeyDown(KeyCode.Space) && !itemInstanceList2[highLightedItemPlayerTwo].GetComponent<ShopItem>().sold || Input.GetButtonDown("Confirm" + pc2.playerIndex) && !itemInstanceList[highLightedItemPlayerTwo].GetComponent<ShopItem>().sold)
+
+            if (itemInstanceList2.Count != 0)
             {
-                if (pc2.money >= itemList2[highLightedItemPlayerTwo].GetComponent<ShopItem>().itemCost)
+                if (Input.GetKeyDown(KeyCode.RightShift) && !itemInstanceList2[highLightedItemPlayerTwo].GetComponent<ShopItem>().sold || Input.GetButtonDown("Confirm" + pc2.playerIndex) && !itemInstanceList[highLightedItemPlayerTwo].GetComponent<ShopItem>().sold)
                 {
-                    soldItems2.Add(highLightedItemPlayerTwo);
+                    if (itemInstanceList2[highLightedItemPlayerTwo] != null)
+                    {
+                        if (pc2.money >= itemInstanceList2[highLightedItemPlayerTwo].GetComponent<ShopItem>().itemCost)
+                        {
+                            inputDelayTimerPlayerTwo = inputDelayTimerStart;
+                            soldItems2.Add(itemInstanceList2[highLightedItemPlayerTwo]);
 
-                    //AddScript(itemInstanceList[highLightedItemPlayerOne].gameObject.GetComponent<ShopItem>().itemScript);
+                            //AddScript(itemInstanceList[highLightedItemPlayerOne].gameObject.GetComponent<ShopItem>().itemScript);
 
-                    //Have a look at how to check for certain power-ups.
-                    print(itemList2[highLightedItemPlayerTwo]);
-                    AudioSource.PlayClipAtPoint(purchaseAcceptedSFX, new Vector3(7, 8, -10), 1.0f);
-                    AddPowerUp.AddPowerUpScript(itemInstanceList2[highLightedItemPlayerTwo].gameObject.GetComponent<ShopItem>().itemScript, itemList2[highLightedItemPlayerTwo], pc2.gameObject);
+                            //Have a look at how to check for certain power-ups.
+                            print(itemList2[highLightedItemPlayerTwo]);
+                            AudioSource.PlayClipAtPoint(purchaseAcceptedSFX, new Vector3(7, 8, -10), 1.0f);
+                            AddPowerUp.AddPowerUpScript(itemInstanceList2[highLightedItemPlayerTwo].gameObject.GetComponent<ShopItem>().itemScript, itemInstanceList2[highLightedItemPlayerTwo], pc2.gameObject);
 
-                    pc2.money -= itemInstanceList2[highLightedItemPlayerTwo].gameObject.GetComponent<ShopItem>().itemCost;
-                    itemInstanceList2[highLightedItemPlayerTwo].gameObject.GetComponent<Image>().sprite = soldSpr;
-                    itemInstanceList2[highLightedItemPlayerTwo].gameObject.GetComponent<ShopItem>().dialougeText = soldDialouge;
-                    itemInstanceList2[highLightedItemPlayerTwo].gameObject.GetComponent<ShopItem>().itemDescription = soldDescription;
-                    moneyTextPlayerTwo.text = "Money: " + pc2.money.ToString();
-                    itemInstanceList2[highLightedItemPlayerTwo].GetComponent<ShopItem>().sold = true;
+                            for (int i = 0; i < itemList2.Count; i++)
+                            {
+                                if (itemList2[i].GetComponent<ShopItem>().itemNameText == soldItems2[0].GetComponent<ShopItem>().itemNameText)
+                                {
+                                    itemList2.RemoveAt(i);
+                                    soldItems2.RemoveAt(0);
 
-                    dialougeText.text = "Score! Another one sold to the SUCKE.. Fine lad!";
-                    itemDescriptionTextPlayerTwo.text = itemInstanceList2[highLightedItemPlayerTwo].gameObject.GetComponent<ShopItem>().itemDescription = soldDescription;
+                                    break;
+                                }
+                            }
 
+                            pc2.money -= itemInstanceList2[highLightedItemPlayerTwo].gameObject.GetComponent<ShopItem>().itemCost;
+                            itemInstanceList2[highLightedItemPlayerTwo].gameObject.GetComponent<Image>().sprite = soldSpr;
+                            itemInstanceList2[highLightedItemPlayerTwo].gameObject.GetComponent<ShopItem>().dialougeText = soldDialouge;
+                            itemInstanceList2[highLightedItemPlayerTwo].gameObject.GetComponent<ShopItem>().itemDescription = soldDescription;
+                            moneyTextPlayerTwo.text = "Money: " + pc2.money.ToString();
+                            itemInstanceList2[highLightedItemPlayerTwo].GetComponent<ShopItem>().sold = true;
 
-                }
-                else if (pc2.money <= itemList2[highLightedItemPlayerTwo].GetComponent<ShopItem>().itemCost)
-                {
-                    AudioSource.PlayClipAtPoint(purchaseDeniedSFX, new Vector3(7, 8, -10), 1.0f);
-                    dialougeText.text = "You trying to cheat me you little bastards??? NOT ENOUGH CASH! Comprende?";
+                            dialougeText.text = "Score! Another one sold to the SUCKE.. Fine lad!";
+                            itemDescriptionTextPlayerTwo.text = itemInstanceList2[highLightedItemPlayerTwo].gameObject.GetComponent<ShopItem>().itemDescription = soldDescription;
+
+                            itemList2.Remove(itemInstanceList2[highLightedItemPlayerTwo]);
+                        }
+                        else if (pc2.money <= itemList2[highLightedItemPlayerTwo].GetComponent<ShopItem>().itemCost)
+                        {
+                            AudioSource.PlayClipAtPoint(purchaseDeniedSFX, new Vector3(7, 8, -10), 1.0f);
+                            dialougeText.text = "You trying to cheat me you little bastards??? NOT ENOUGH CASH! Comprende?";
+                        }
+                    }
                 }
             }
         }
